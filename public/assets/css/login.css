@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  background: url(../img/bglogin.jpg);
+  z-index: -1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  z-index: 1;
+}
+.login-box {
+  position: relative;
+  width: 370px;
+  height: 450px;
+  background: rgba(6, 9, 27, 0.83);
+  color: #f7f4f4;
+  padding: 30px 30px 25px 30px;
+  border-radius: 20px;
+}
+
+.img {
+  width: 80px;
+  object-fit: contain;
+  margin-top: 30px;
+  filter: brightness(1) grayscale(1) invert();
+}
+
+.header-img {
+  position: absolute;
+  top: 2%;
+  left: 77%;
+}
+.header-img img {
+  width: 75px;
+}
+.header-text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.input-field {
+  height: 40px;
+  background: transparent;
+  color: #fff;
+  border: 0;
+  border-bottom: 1px solid #fff;
+  margin: 15px 0;
+  padding: 0 15px;
+  outline: none;
+}
+.input-field:focus,
+.input-field:valid {
+  border-bottom: 2px solid rgba(33, 46, 116, 0.83);
+}
+.input-group label {
+  position: absolute;
+  top: 23px;
+  left: 3px;
+  transition: 0.3s;
+}
+.input-field:focus ~ label,
+.input-field:valid ~ label {
+  top: 5px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.83);
+}
+.forgot-pass {
+  text-align: right;
+}
+.forgot-pass a {
+  color: #c4d0e7de;
+  font-size: 12px;
+}
+.input-submit {
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  background: #dfe0d2;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: 0.4s ease-out;
+}
+
+.input-submit a {
+  text-decoration: none;
+}
+.input-submit:hover {
+  box-shadow: 0 1px 10px rgb(254, 201, 26, 0.5);
+}
