@@ -1,13 +1,11 @@
 ## About Application
 
-Application RBAC, Todo List with API Sanctum
+Application Safety Management
 
 ## Tools & Library 
 
 - Laravel 9.45.
 - PHP 8.0|8.0^
-- Mews/Captcha.
-- API Sanctum.
 
 ## HOW TO INSTALL 
 
