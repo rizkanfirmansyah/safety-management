@@ -47,6 +47,7 @@
                     </div>
                     <div class="col-8">
                         <form action="{{ route('login.submit') }}" method="POST" class="mt-5">
+                            @csrf
                             <input type="text" placeholder="Username" id="Username" class="form-control"
                                 aria-describedby="passwordHelpBlock">
                             <div class="input-group mb-3 mt-3">
@@ -58,13 +59,13 @@
                             <div class="text-end mt-4">
                                 <span class="text-small text-muted mt-4 pt-4">Forgot Password?</span>
                             </div>
+                            <div class="d-grid gap-2 mt-5">
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </div>
+                            <div class="text-center mt-5 ">
+                                <small class="text-muted">or continue with</small>
+                            </div>
                         </form>
-                        <div class="d-grid gap-2 mt-5">
-                            <button class="btn btn-primary" type="submit">Login</button>
-                        </div>
-                        <div class="text-center mt-5 ">
-                            <small class="text-muted">or continue with</small>
-                        </div>
                         <div class="images">
                             <div class="row justify-content-center mt-4">
                                 <div class="col-xl-1 col-2 me-3">
