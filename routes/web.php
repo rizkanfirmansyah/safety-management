@@ -22,5 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [DashboardController::class, 'index']);
 Route::resource('users', UserController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
 Route::resource('roles', RoleController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
-Route::resource('login', LoginController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
+Route::resource('login', LoginController::class)->only(['login', 'index']);
 Route::resource('organitations', OrganitationController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
