@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `organitations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table safety_management.organitations: ~3 rows (approximately)
+-- Dumping data for table safety_management.organitations: ~4 rows (approximately)
 /*!40000 ALTER TABLE `organitations` DISABLE KEYS */;
 INSERT INTO `organitations` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'Bid. Sistem Manajemen Basis Data', NULL, NULL),
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table safety_management.users: ~1 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `role_id`, `organitation_id`, `username`, `fullname`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-	(2, 1, 2, '221123', 'Rizkan', NULL, '2023-07-17 15:13:16', '$2y$10$Bk/kZDcVQ//l9LbfzD3mge1q1TCIo2kQy/CKERXnCRNlrfJrWsGu.', NULL, '2023-07-17 15:13:16', '2023-07-17 15:13:16');
+	(2, 1, 2, '1', 'Rizkan', NULL, '2023-07-17 15:13:16', '$2y$10$KVQr6qE.3tMWG.g4755noeyLBhrWDR9kXl/NLIHyU9v.hCUqgL8QC', NULL, '2023-07-17 15:13:16', '2023-07-17 15:13:16');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
