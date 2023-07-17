@@ -158,6 +158,91 @@
                                     </div>
                                 </form>
                                 <!-- MODAL END -->
+
+                                <!-- Modal -->
+                                @foreach ($users as $user)
+                                    <form method="POST" action="{{ route('users.update', $user->id) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT USER
+                                                        </h1>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3 row">
+                                                            <label for="" class="col-sm-2">NIK</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    name="username" value="{{ $user->username }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword" class="col-sm-2">Nama</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    name="fullname" value="{{ $user->fullname }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-2">Password</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="password" class="form-control"
+                                                                    name="password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-2 col-form-label">Organisasi</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-select form-select-sm ms-2"
+                                                                    name="organitation_id">
+                                                                    <option value selected>--PILIH ORGANISASI--</option>
+                                                                    @foreach ($organitations as $item)
+                                                                        <option value="{{ $item->id }}"
+                                                                            {{ $user->organitation_id == $item->id ? 'selected' : '' }}>
+                                                                            {{ $item->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 row">
+                                                            <label for="inputPassword"
+                                                                class="col-sm-2 col-form-label">Roles</label>
+                                                            <div class="col-sm-8">
+                                                                <select class="form-select form-select-sm ms-2"
+                                                                    name="role_id">
+                                                                    <option value selected>--PILIH ROLES--</option>
+                                                                    @foreach ($roles as $item)
+                                                                        <option value="{{ $item->id }}"
+                                                                            {{ $user->role_id == $item->id ? 'selected' : '' }}>
+                                                                            {{ $item->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            Changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endforeach
+                                <!-- MODAL END -->
+
                             </div>
                         </div>
 
@@ -173,85 +258,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>01234</td>
-                                    <td>Annisa Fitria</td>
-                                    <td>TU44 - Mhs. Magang</td>
-                                    <td>
-                                        <button class="roles">
-                                            Response Function
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <i class="uil uil-edit edit"></i>
-                                        </button>
-                                        <button>
-                                            <i class="uil uil-trash-alt delete"></i>
-                                        </button>
-                                    </td>
-                                </tbody>
-
-                                <tbody>
-                                    <td>01234</td>
-                                    <td>Annisa Fitria</td>
-                                    <td>TU44 - Mhs. Magang</td>
-                                    <td>
-                                        <button class="roles">
-                                            Response Function
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <i class="uil uil-edit"></i>
-                                        </button>
-                                        <button>
-                                            <i class="uil uil-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tbody>
-
-                                <tbody>
-                                    <td>01234</td>
-                                    <td>Annisa Fitria</td>
-                                    <td>TU44 - Mhs. Magang</td>
-                                    <td>
-                                        <button class="roles">
-                                            Dept.Safety
-                                        </button>
-                                        <button class="roles">
-                                            Response Function
-                                        </button>
-                                        <button class="roles">
-                                            <Dept class="Safety"></Dept>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <i class="uil uil-edit"></i>
-                                        </button>
-                                        <button>
-                                            <i class="uil uil-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tbody>
-
-                                <tbody>
-                                    <td>01234</td>
-                                    <td>Annisa Fitria</td>
-                                    <td>TU44 - Mhs. Magang</td>
-                                    <td>
-                                        <button class="roles">
-                                            <Dept class="Safety"></Dept>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button>
-                                            <i class="uil uil-edit"></i>
-                                        </button>
-                                        <button>
-                                            <i class="uil uil-trash-alt"></i>
-                                        </button>
-                                    </td>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->username }}</td>
+                                            <td>{{ $user->fullname }}</td>
+                                            <td>{{ $user->organitation->name }}</td>
+                                            <td>
+                                                <button class="roles">
+                                                    {{ $user->role->name }}
+                                                </button>
+                                            </td>
+                                            <td class="flex flex-col">
+                                                <button type="button" class="btn btn-icon btn-sm btn-warning"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editModal{{ $user->id }}">
+                                                    <i class="uil uil-edit edit"></i>
+                                                </button>
+                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                                    class="p-0 m-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-icon btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure you want to delete this user?')">
+                                                        <i class="uil uil-trash-alt delete"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
 
                             </table>

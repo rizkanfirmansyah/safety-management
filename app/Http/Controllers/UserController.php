@@ -6,6 +6,7 @@ use App\Models\Organitation;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,24 +14,46 @@ class UserController extends Controller
     public function index()
     {
         $roles = Role::all();
+        $users = User::with('organitation', 'role')->get();
         $organitations = Organitation::all();
-        return view('users', compact('roles', 'organitations'));
+        return view('users', compact('roles', 'organitations', 'users'));
     }
 
     public function edit($id)
     {
-        // Logic to retrieve the user with the given ID and pass it to the edit view
+        $roles = Role::all();
+        $users = User::findOrFail($id);
+        $organitations = Organitation::all();
+        return view('users', compact('roles', 'organitations', 'users'));
     }
 
     public function update(Request $request, $id)
     {
-        // Logic to update the user with the given ID based on the request data
+        $user = User::findOrFail($id);
+        $user->fill($request->only([
+            'username',
+            'fullname',
+            'organitation_id',
+            'role_id',
+        ]));
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     public function destroy($id)
     {
-        // Logic to delete the user with the given ID
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }
+
 
     public function store(Request $request)
     {

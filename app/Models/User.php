@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = Hash::make($password);
     }
+
+    public function organitation()
+    {
+        return $this->hasOne(Organitation::class, 'id', 'organitation_id');
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
+    }
 }
