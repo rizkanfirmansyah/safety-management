@@ -13,45 +13,7 @@
 </head>
 
 <body>
-    <nav>
-        <div class="logo-name">
-            <div class="logo-image">
-                <img src="../img/dirgantara.png" style="filter: brightness(1) grayscale(1) invert();" alt="" />
-            </div>
-            <span class="logo_name">SAFETY <a href="" class="warna">MANAGEMENT</a> </span>
-        </div>
-        <div class="menu-items">
-            <ul class="nav-link">
-                <li>
-                    <a href="dashboard.php">
-                        <i class="uil uil-estate"></i>
-                        <span class="link-name">Dashboard</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="safety.php">
-                        <i class="uil uil-file-edit-alt logo"></i>
-                        <span class="link-name">Def Safety</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="users.php">
-                        <i class="uil uil-user"></i>
-                        <span class="link-name">Otoritas User</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="logout-mod">
-                <li>
-                    <a href="../../index.php">
-                        <i class="uil uil-signout"></i>
-                        <span class="link-name">Logout!</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    @include('templates.nav')
 
     <section class="dashboard">
         <div class="top">
