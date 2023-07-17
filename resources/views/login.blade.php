@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
@@ -68,13 +68,13 @@
                         <div class="images">
                             <div class="row justify-content-center mt-4">
                                 <div class="col-xl-1 col-2 me-3">
-                                    <img src="assets/img/apple.png" alt="">
+                                    <img src="/assets/img/apple.png" alt="">
                                 </div>
                                 <div class="col-xl-1 col-2 me-3">
-                                    <img src="assets/img/Facebook.png" alt="">
+                                    <img src="/assets/img/Facebook.png" alt="">
                                 </div>
                                 <div class="col-xl-1 col-2 me-3">
-                                    <img src="assets/img/google.png" alt="">
+                                    <img src="/assets/img/google.png" alt="">
                                 </div>
                             </div>
                         </div>
