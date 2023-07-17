@@ -22,6 +22,6 @@ class LoginController extends Controller
             return redirect()->intended('/');
         }
 
-        return redirect()->route('login')->with('error', 'Invalid credentials');
+        return redirect()->route('login')->with('error', 'Error!, Username or Password Wrong');
     }
 }
