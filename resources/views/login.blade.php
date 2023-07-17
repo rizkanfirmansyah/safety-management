@@ -46,6 +46,11 @@
                         <h1>Sign In</h1>
                     </div>
                     <div class="col-8">
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form action="{{ route('login.submit') }}" method="POST" class="mt-5">
                             @csrf
                             <input type="text" placeholder="Username" id="Username" class="form-control"
