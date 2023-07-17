@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 
+Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::resource('users', UserController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
-Route::resource('organitations', OrganitationController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
-Route::resource('roles', RoleController::class)->only(['edit', 'update', 'destroy', 'index', 'store']);
+Route::resource('users', UserController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
+Route::resource('organitations', OrganitationController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
+Route::resource('roles', RoleController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
