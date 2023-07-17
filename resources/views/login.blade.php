@@ -53,8 +53,8 @@
                                 </div>
                             @endif
                             @csrf
-                            <input type="text" placeholder="Username" id="Username" class="form-control"
-                                aria-describedby="passwordHelpBlock">
+                            <input type="text" placeholder="Username" id="Username" name="username"
+                                class="form-control" aria-describedby="passwordHelpBlock">
                             <div class="input-group mb-3 mt-3">
                                 <input type="password" class="form-control" name="password" placeholder="Password"
                                     aria-label="Password" id="password" aria-describedby="basic-addon2">
