@@ -46,7 +46,7 @@
                         <h1>Sign In</h1>
                     </div>
                     <div class="col-8">
-                        <form action="{{ route('login.login') }}" method="POST" class="mt-5">
+                        <form action="{{ route('login.submit') }}" method="POST" class="mt-5">
                             <input type="text" placeholder="Username" id="Username" class="form-control"
                                 aria-describedby="passwordHelpBlock">
                             <div class="input-group mb-3 mt-3">
