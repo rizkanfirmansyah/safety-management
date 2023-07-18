@@ -2,6 +2,16 @@
 
 Application Safety Management
 
+## USer Example
+
+**ADMIN**
+username : 1
+password : admin
+
+**USER**
+username : 222
+password : 123
+
 ## Tools & Library 
 
 - Laravel 9.45.
@@ -21,6 +31,8 @@ Application Safety Management
     Unique Key yang dibutuhkan environtment
 - **MIGRASI DATABASE -- php artisan migrate**
     Table & FIeld yang dibutuhkan aplikasi untuk memenuhi syarat pertukaran data
+- **STORAGE LINK -- php artisan storage:link**
+    Untuk menghubungkan data file dengan data yang telah di Upload
 - **(optional)RESTORE DATABASE -- restoren manual. db in _DATA/db**
     Restore yang table sudah terisikan data-data pendukung
 
