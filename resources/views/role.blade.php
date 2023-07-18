@@ -122,20 +122,22 @@
                                         <tr>
                                             <td>{{ $role->name }}</td>
                                             <td class="flex flex-col">
-                                                <button type="button" class="btn btn-icon btn-sm btn-warning"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editModal{{ $role->id }}">
-                                                    <i class="uil uil-edit edit"></i>
-                                                </button>
-                                                <form action="{{ route('roles.destroy', $role->id) }}" method="POST"
-                                                    class="p-0 m-0">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-icon btn-sm btn-danger"
-                                                        onclick="return confirm('Are you sure you want to delete this role?')">
-                                                        <i class="uil uil-trash-alt delete"></i>
+                                                @if ($role->id !== 1)
+                                                    <button type="button" class="btn btn-icon btn-sm btn-warning"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $role->id }}">
+                                                        <i class="uil uil-edit edit"></i>
                                                     </button>
-                                                </form>
+                                                    <form action="{{ route('roles.destroy', $role->id) }}"
+                                                        method="POST" class="p-0 m-0">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-icon btn-sm btn-danger"
+                                                            onclick="return confirm('Are you sure you want to delete this role?')">
+                                                            <i class="uil uil-trash-alt delete"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             </td>
                                             </td>
                                         </tr>
