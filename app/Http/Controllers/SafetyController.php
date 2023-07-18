@@ -37,8 +37,6 @@ class SafetyController extends Controller
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
 
-        dd($request->all());
-
         try {
             Safety::create($request->all());
         } catch (\Throwable $th) {
