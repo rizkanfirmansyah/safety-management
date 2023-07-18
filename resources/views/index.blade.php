@@ -13,14 +13,15 @@
 <body>
     <div class="background"></div>
     <form action="{{ route('login.submit') }}" method="POST" class="mt-5">
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+
         @csrf
         <div class="container">
             <div class="login-box">
+                @if (session('error'))
+                    <div class="alert alert-danger text-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <div class="header-text">
                     <p>Login</p>
                     <div>
