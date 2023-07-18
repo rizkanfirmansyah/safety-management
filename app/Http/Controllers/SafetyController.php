@@ -12,8 +12,18 @@ class SafetyController extends Controller
     //
     public function index()
     {
+        $options = [
+            1 => 'Aircraft Maintenance',
+            2 => 'Aircraft Component / Interior Maintenance',
+            3 => 'Dismantling',
+            4 => 'Minor / Major Repair',
+            5 => 'Ground Run',
+            6 => 'Functional Test',
+            7 => 'Aircraft Modification',
+        ];
+
         $safeties = Safety::all();
-        return view('safety', compact('safeties'));
+        return view('safety', compact('safeties', 'options'));
     }
 
     public function store(Request $request)
