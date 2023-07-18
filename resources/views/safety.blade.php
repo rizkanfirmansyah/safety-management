@@ -138,7 +138,7 @@
                                     <th style="width: 100px;">Date of Submission</th>
                                     <th style="width: 150px;">Date of Hazard Identification</th>
                                     <th>Location</th>
-                                    <th>Type Operation</th>
+                                    <th style="width: 150px;">Type Operation</th>
                                     <th>Description</th>
                                     <th>File Reporter</th>
                                     <th>Risk Probability</th>
@@ -160,8 +160,8 @@
                                         <td>K3</td>
                                         <td>{{ $safety->date_of_submission }}</td>
                                         <td>{{ $safety->date_of_hazard_identification }}</td>
-                                        <td>FW</td>
-                                        <td>Other</td>
+                                        <td>{{ $safety->description }}</td>
+                                        <td>{{ $options[$safety->type_operation] }}</td>
                                         <td>{{ $safety->description }}</td>
                                         <td>
                                             <form action="/download/{{ $safety->file_reporter }}" method="post">
