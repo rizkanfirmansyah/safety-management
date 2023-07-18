@@ -16,28 +16,47 @@ class SafetyController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'Number' => 'required|max:125',
-            'Reporter' => 'required|max:50',
-            'Classification' => 'required|max:50',
-            'Date_of_Submission' => 'required|date',
-            'Date_of_Hazard_Identification' => 'required|date',
-            'Location' => 'required|max:255',
-            'Type_Operation' => 'required|max:125',
-            'Description' => 'nullable',
-            'File_Reporter' => 'nullable|max:125',
-            'Risk_Probability' => 'required|max:50',
-            'Risk_Severity' => 'required|max:50',
-            'Risk_Index' => 'required|max:50',
-            'COP' => 'required|max:50',
-            'HM' => 'required|max:50',
-            'CO' => 'required|max:50',
-            'Responsible' => 'required|max:50',
-            'File_Response' => 'nullable|max:125',
+            'reporter' => 'nullable|max:50',
+            'classification' => 'nullable|max:50',
+            'date_of_submission' => 'nullable|date',
+            'date_of_hazard_identification' => 'nullable|date',
+            'location' => 'nullable|max:255',
+            'type_operation' => 'nullable|max:125',
+            'description' => 'nullable',
+            'risk_probability' => 'nullable|max:50',
+            'risk_severity' => 'nullable|max:50',
+            'risk_index' => 'nullable|max:50',
+            'cop' => 'nullable|max:50',
+            'hm' => 'nullable|max:50',
+            'co' => 'nullable|max:50',
+            'responsible' => 'nullable|max:50',
+            'file_upload' => 'nullable|file',
         ]);
+
+        $file = $request->file('file_upload');
+
+        // $fileReporter = $request->file('file_reporter');
+        // $fileResponse = $request->file('file_response');
+
+        if ($file) {
+            $filePath = $file->store('file_reporter');
+            $validatedData['file_reporter'] = $filePath;
+            $validatedData['file_response'] = $filePath;
+        }
+
+        // if ($fileReporter) {
+        //     $fileReporterPath = $fileReporter->store('file_reporter');
+        //     $validatedData['file_reporter'] = $fileReporterPath;
+        // }
+
+        // if ($fileResponse) {
+        //     $fileResponsePath = $fileResponse->store('file_response');
+        //     $validatedData['file_response'] = $fileResponsePath;
+        // }
 
         Safety::create($validatedData);
 
-        return redirect()->route('safety.index')
+        return redirect()->route('safeties.index')
             ->with('success', 'Safety record created successfully.');
     }
 
@@ -75,28 +94,37 @@ class SafetyController extends Controller
         $safety = Safety::findOrFail($id);
 
         $validatedData = $request->validate([
-            'Number' => 'required|max:125',
-            'Reporter' => 'required|max:50',
-            'Classification' => 'required|max:50',
-            'Date_of_Submission' => 'required|date',
-            'Date_of_Hazard_Identification' => 'required|date',
-            'Location' => 'required|max:255',
-            'Type_Operation' => 'required|max:125',
-            'Description' => 'nullable',
-            'File_Reporter' => 'nullable|max:125',
-            'Risk_Probability' => 'required|max:50',
-            'Risk_Severity' => 'required|max:50',
-            'Risk_Index' => 'required|max:50',
-            'COP' => 'required|max:50',
-            'HM' => 'required|max:50',
-            'CO' => 'required|max:50',
-            'Responsible' => 'required|max:50',
-            'File_Response' => 'nullable|max:125',
+            'reporter' => 'nullable|max:50',
+            'classification' => 'nullable|max:50',
+            'date_of_submission' => 'nullable|date',
+            'date_of_hazard_identification' => 'nullable|date',
+            'location' => 'nullable|max:255',
+            'type_operation' => 'nullable|max:125',
+            'description' => 'nullable',
+            'risk_probability' => 'nullable|max:50',
+            'risk_severity' => 'nullable|max:50',
+            'risk_index' => 'nullable|max:50',
+            'cop' => 'nullable|max:50',
+            'hm' => 'nullable|max:50',
+            'co' => 'nullable|max:50',
+            'responsible' => 'nullable|max:50',
+            'file_upload' => 'nullable|file',
         ]);
+
+        $file = $request->file('file_upload');
+
+        // $fileReporter = $request->file('file_reporter');
+        // $fileResponse = $request->file('file_response');
+
+        if ($file) {
+            $filePath = $file->store('file_reporter');
+            $validatedData['file_reporter'] = $filePath;
+            $validatedData['file_response'] = $filePath;
+        }
 
         $safety->update($validatedData);
 
-        return redirect()->route('safety.index')
+        return redirect()->route('safeties.index')
             ->with('success', 'Safety record updated successfully.');
     }
 
@@ -112,7 +140,7 @@ class SafetyController extends Controller
         $safety = Safety::findOrFail($id);
         $safety->delete();
 
-        return redirect()->route('safety.index')
+        return redirect()->route('safeties.index')
             ->with('success', 'Safety record deleted successfully.');
     }
 }
