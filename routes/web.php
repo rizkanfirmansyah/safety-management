@@ -31,3 +31,4 @@ Route::resource('users', UserController::class)->only(['edit', 'update', 'destro
 Route::resource('organitations', OrganitationController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('roles', RoleController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('safeties', SafetyController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
+Route::get('/download/{filename}', 'SafetyController@download')->name('safeties.download');
