@@ -22,7 +22,7 @@ class SafetyController extends Controller
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_reporter');
+            $filePath = $file->store('file_upload');
             $request->request->add(['file_reporter' => $filePath]);
             $request->request->add(['file_response' => $filePath]);
         }
