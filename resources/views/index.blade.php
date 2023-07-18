@@ -12,33 +12,40 @@
 
 <body>
     <div class="background"></div>
-    <div class="container">
-        <div class="login-box">
-            <div class="header-text">
-                <p>Login</p>
-                <div>
-                    <img class="img" src="assets/img/dirgantara.png" alt="" />
+    <form action="{{ route('login.submit') }}" method="POST" class="mt-5">
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        @csrf
+        <div class="container">
+            <div class="login-box">
+                <div class="header-text">
+                    <p>Login</p>
+                    <div>
+                        <img class="img" src="assets/img/dirgantara.png" alt="" />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="input-field" name="username" required />
+                    <label for="username">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" class="input-field" name="password" required />
+                    <label for="password">Password</label>
+                </div>
+                <div class="forgot-pass">
+                    <a href="#">Forgot password?</a>
+                </div>
+                <div class="input-group">
+                    <button class="input-submit" type="submit">Login
+                        <i class="bx bx-log-in"></i>
+                    </button>
                 </div>
             </div>
-            <div class="input-group">
-                <input type="text" class="input-field" id="username" required />
-                <label for="username">Username</label>
-            </div>
-            <div class="input-group">
-                <input type="password" class="input-field" id="password" required />
-                <label for="password">Password</label>
-            </div>
-            <div class="forgot-pass">
-                <a href="#">Forgot password?</a>
-            </div>
-            <div class="input-group">
-                <button class="input-submit">
-                    <a href="/assets/pub/dashboard.php">Login</a>
-                    <i class="bx bx-log-in"></i>
-                </button>
-            </div>
         </div>
-    </div>
+    </form>
 </body>
 
 </html>
