@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Safety;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class SafetyController extends Controller
 {
@@ -114,5 +116,21 @@ class SafetyController extends Controller
 
         return redirect()->route('safeties.index')
             ->with('success', 'Safety record deleted successfully.');
+    }
+
+    public function downloadFile($filename)
+    {
+        $path = storage_path('app/' . $filename);
+
+        if (!Storage::exists($path)) {
+            abort(404);
+        }
+
+        $file = Storage::get($path);
+        $type = Storage::mimeType($path);
+
+        return (new Response($file, 200))
+            ->header('Content-Type', $type)
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }
 }

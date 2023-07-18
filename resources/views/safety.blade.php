@@ -163,7 +163,11 @@
                                         <td>FW</td>
                                         <td>Other</td>
                                         <td>{{ $safety->description }}</td>
-                                        <td>&ensp;</td>
+                                        <td>
+                                            <button>
+                                                <i class="uil uil-file-info-alt"></i>
+                                            </button>
+                                        </td>
                                         <td>{{ $safety->risk_probability }}</td>
                                         <td>{{ $safety->risk_severity }}</td>
                                         <td>{{ $safety->risk_index }}</td>
@@ -171,7 +175,11 @@
                                         <td style="background-color: red;"></td>
                                         <td></td>
                                         <td>IT3600</td>
-                                        <td>&ensp;</td>
+                                        <td>
+                                            <button>
+                                                <i class="uil uil-file-info-alt"></i>
+                                            </button>
+                                        </td>
                                         <td>Closed</td>
                                     </tr>
                                 @endforeach
