@@ -77,9 +77,10 @@
                                                         <label for="exampleInputPassword1" class="form-label">Date Of
                                                             Submission</label>
                                                         <fieldset disabled>
-                                                            <input type="text" id="disabledTextInput"
+                                                            <input type="date" id="disabledTextInput"
                                                                 class="form-control" name="date_of_submission"
-                                                                placeholder="{{ date('d/m/Y') }}">
+                                                                placeholder="{{ date('d/m/Y') }}"
+                                                                value="{{ date('d/m/Y') }}">
                                                         </fieldset>
                                                     </div>
                                                     <div class="mb-3">
