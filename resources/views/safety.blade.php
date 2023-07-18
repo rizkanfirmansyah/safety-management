@@ -53,11 +53,13 @@
                                                     aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form method="post" action="{{ route('safeties.store') }}">
+                                                    @csrf
                                                     <div class="mb-3">
                                                         <label for="exampleInputEmail1"
                                                             class="form-label">Category</label>
-                                                        <select class="form-select" name="" id="">
+                                                        <select class="form-select" name="classification"
+                                                            id="classification">
                                                             <option value="" selected>--Choose Category--</option>
                                                             <option value="1">Aircraft Maintenance</option>
                                                             <option value="2">Aurcraft Component / Interior
@@ -75,23 +77,26 @@
                                                             Submission</label>
                                                         <fieldset disabled>
                                                             <input type="text" id="disabledTextInput"
-                                                                class="form-control" placeholder="14/07/2023">
+                                                                class="form-control" name="date_of_submission"
+                                                                placeholder="{{ date('d/m/Y') }}">
                                                         </fieldset>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Date Of
                                                             Hazard Identification</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="date" class="form-control"
+                                                            name="date_of_hazard_identification">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1"
                                                             class="form-label">Location</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control" name="location">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Type of
                                                             Operation</label>
-                                                        <select class="form-select" name="" id="">
+                                                        <select class="form-select" name="type_operation"
+                                                            id="">
                                                             <option selected="">Choose Type</option>
                                                             <option value="1">Aircraft Maintenance</option>
                                                             <option value="2">Aurcraft Component / Interior
@@ -107,19 +112,21 @@
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Hazard
                                                             Description</label>
-                                                        <input type="text" class="form-control">
+                                                        <input type="text" class="form-control"
+                                                            name="description">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">File Upload</label>
-                                                        <input class="form-control" type="file" id="formFile">
+                                                        <input class="form-control" type="file"
+                                                            name="file_upload">
                                                     </div>
-                                                </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
