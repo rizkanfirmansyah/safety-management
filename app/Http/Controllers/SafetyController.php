@@ -15,23 +15,6 @@ class SafetyController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'reporter' => 'nullable|max:50',
-            'classification' => 'nullable|max:50',
-            'date_of_submission' => 'nullable|date',
-            'date_of_hazard_identification' => 'nullable|date',
-            'location' => 'nullable|max:255',
-            'type_operation' => 'nullable|max:125',
-            'description' => 'nullable',
-            'risk_probability' => 'nullable|max:50',
-            'risk_severity' => 'nullable|max:50',
-            'risk_index' => 'nullable|max:50',
-            'cop' => 'nullable|max:50',
-            'hm' => 'nullable|max:50',
-            'co' => 'nullable|max:50',
-            'responsible' => 'nullable|max:50',
-            'file_upload' => 'nullable|file',
-        ]);
 
         $file = $request->file('file_upload');
 
@@ -40,8 +23,8 @@ class SafetyController extends Controller
 
         if ($file) {
             $filePath = $file->store('file_reporter');
-            $validatedData['file_reporter'] = $filePath;
-            $validatedData['file_response'] = $filePath;
+            $request->request->add(['file_reporter' => $filePath]);
+            $request->request->add(['file_response' => $filePath]);
         }
 
         // if ($fileReporter) {
@@ -54,7 +37,13 @@ class SafetyController extends Controller
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
 
-        Safety::create($validatedData);
+        dd($request->all());
+
+        try {
+            Safety::create($request->all());
+        } catch (\Throwable $th) {
+            return response($th->getMessage());
+        }
 
         return redirect()->route('safeties.index')
             ->with('success', 'Safety record created successfully.');
@@ -92,24 +81,6 @@ class SafetyController extends Controller
     public function update(Request $request, $id)
     {
         $safety = Safety::findOrFail($id);
-
-        $validatedData = $request->validate([
-            'reporter' => 'nullable|max:50',
-            'classification' => 'nullable|max:50',
-            'date_of_submission' => 'nullable|date',
-            'date_of_hazard_identification' => 'nullable|date',
-            'location' => 'nullable|max:255',
-            'type_operation' => 'nullable|max:125',
-            'description' => 'nullable',
-            'risk_probability' => 'nullable|max:50',
-            'risk_severity' => 'nullable|max:50',
-            'risk_index' => 'nullable|max:50',
-            'cop' => 'nullable|max:50',
-            'hm' => 'nullable|max:50',
-            'co' => 'nullable|max:50',
-            'responsible' => 'nullable|max:50',
-            'file_upload' => 'nullable|file',
-        ]);
 
         $file = $request->file('file_upload');
 

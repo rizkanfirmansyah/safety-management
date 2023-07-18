@@ -46,21 +46,21 @@
                                 <div class="modal fade" id="exampleModal" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="post" action="{{ route('safeties.store') }}">
+                                        <form method="post" action="{{ route('safeties.store') }}">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
                                                     @csrf
                                                     <div class="mb-3">
                                                         <label for="exampleInputEmail1"
                                                             class="form-label">Category</label>
                                                         <select class="form-select" name="classification"
                                                             id="classification">
-                                                            <option value="" selected>--Choose Category--</option>
+                                                            <option selected disabled value>--Choose Category--</option>
                                                             <option value="1">Aircraft Maintenance</option>
                                                             <option value="2">Aurcraft Component / Interior
                                                                 Maintenance
@@ -97,7 +97,7 @@
                                                             Operation</label>
                                                         <select class="form-select" name="type_operation"
                                                             id="">
-                                                            <option selected="">Choose Type</option>
+                                                            <option selected disabled value>Choose Type</option>
                                                             <option value="1">Aircraft Maintenance</option>
                                                             <option value="2">Aurcraft Component / Interior
                                                                 Maintenance
@@ -120,93 +120,94 @@
                                                         <input class="form-control" type="file"
                                                             name="file_upload">
                                                     </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                            </form>
-                                        </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save
+                                                        changes</button>
+                                                </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="table-section">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Number</th>
-                                        <th>Reporter</th>
-                                        <th style="width: 150px;">Classification</th>
-                                        <th style="width: 100px;">Date of Submission</th>
-                                        <th style="width: 150px;">Date of Hazard Identification</th>
-                                        <th>Location</th>
-                                        <th>Type Operation</th>
-                                        <th>Description</th>
-                                        <th>File Reporter</th>
-                                        <th>Risk Probability</th>
-                                        <th>Risk Severity</th>
-                                        <th>Risk Index</th>
-                                        <th>COP</th>
-                                        <th>HM</th>
-                                        <th>CO</th>
-                                        <th>Responsible</th>
-                                        <th>File Response</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td>HR0001/08/23</td>
-                                    <td>160260</td>
-                                    <td>K3</td>
-                                    <td>2023-08-14</td>
-                                    <td>2023-08-15</td>
-                                    <td>FW</td>
-                                    <td>Other</td>
-                                    <td>test</td>
-                                    <td>&ensp;</td>
-                                    <td>S</td>
-                                    <td>A</td>
-                                    <td>SA</td>
-                                    <td>&ensp;</td>
-                                    <td style="background-color: red;"></td>
-                                    <td></td>
-                                    <td>IT3600</td>
-                                    <td>&ensp;</td>
-                                    <td>Closed</td>
-                                </tbody>
+                    <div class="table-section">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Reporter</th>
+                                    <th style="width: 150px;">Classification</th>
+                                    <th style="width: 100px;">Date of Submission</th>
+                                    <th style="width: 150px;">Date of Hazard Identification</th>
+                                    <th>Location</th>
+                                    <th>Type Operation</th>
+                                    <th>Description</th>
+                                    <th>File Reporter</th>
+                                    <th>Risk Probability</th>
+                                    <th>Risk Severity</th>
+                                    <th>Risk Index</th>
+                                    <th>COP</th>
+                                    <th>HM</th>
+                                    <th>CO</th>
+                                    <th>Responsible</th>
+                                    <th>File Response</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>HR0001/08/23</td>
+                                <td>160260</td>
+                                <td>K3</td>
+                                <td>2023-08-14</td>
+                                <td>2023-08-15</td>
+                                <td>FW</td>
+                                <td>Other</td>
+                                <td>test</td>
+                                <td>&ensp;</td>
+                                <td>S</td>
+                                <td>A</td>
+                                <td>SA</td>
+                                <td>&ensp;</td>
+                                <td style="background-color: red;"></td>
+                                <td></td>
+                                <td>IT3600</td>
+                                <td>&ensp;</td>
+                                <td>Closed</td>
+                            </tbody>
 
-                                <tbody>
-                                    <td>HR0001/08/23</td>
-                                    <td>160260</td>
-                                    <td>K3</td>
-                                    <td>2023-08-14</td>
-                                    <td>2023-08-15</td>
-                                    <td>FW</td>
-                                    <td>Other</td>
-                                    <td>test</td>
-                                    <td>&ensp;</td>
-                                    <td>S</td>
-                                    <td>A</td>
-                                    <td>SA</td>
-                                    <td style="background-color: yellow;">&ensp;</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>IT3600</td>
-                                    <td>&ensp;</td>
-                                    <td>Closed</td>
-                                </tbody>
-
-
-                            </table>
+                            <tbody>
+                                <td>HR0001/08/23</td>
+                                <td>160260</td>
+                                <td>K3</td>
+                                <td>2023-08-14</td>
+                                <td>2023-08-15</td>
+                                <td>FW</td>
+                                <td>Other</td>
+                                <td>test</td>
+                                <td>&ensp;</td>
+                                <td>S</td>
+                                <td>A</td>
+                                <td>SA</td>
+                                <td style="background-color: yellow;">&ensp;</td>
+                                <td></td>
+                                <td></td>
+                                <td>IT3600</td>
+                                <td>&ensp;</td>
+                                <td>Closed</td>
+                            </tbody>
 
 
-                        </div>
+                        </table>
+
+
                     </div>
                 </div>
             </div>
+        </div>
     </section>
 
     <script src="../js/script.js"></script>
