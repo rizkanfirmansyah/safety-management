@@ -118,7 +118,7 @@ class SafetyController extends Controller
             ->with('success', 'Safety record deleted successfully.');
     }
 
-    public function downloadFile($filename)
+    public function download($filename)
     {
         $path = storage_path('app/' . $filename);
 

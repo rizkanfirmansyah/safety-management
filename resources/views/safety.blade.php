@@ -164,9 +164,11 @@
                                         <td>Other</td>
                                         <td>{{ $safety->description }}</td>
                                         <td>
-                                            <button>
+                                            <a
+                                                href="{{ route('safeties.download', ['filename' => $safety->file_reporter]) }}">
                                                 <i class="uil uil-file-info-alt"></i>
-                                            </button>
+                                            </a>
+
                                         </td>
                                         <td>{{ $safety->risk_probability }}</td>
                                         <td>{{ $safety->risk_severity }}</td>
