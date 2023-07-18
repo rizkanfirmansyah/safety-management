@@ -164,11 +164,12 @@
                                         <td>Other</td>
                                         <td>{{ $safety->description }}</td>
                                         <td>
-                                            <a
-                                                href="{{ route('safeties.download', ['filename' => $safety->file_reporter]) }}">
-                                                <i class="uil uil-file-info-alt"></i>
-                                            </a>
-
+                                            <form action="/download/{{ $safety->file_reporter }}" method="post">
+                                                @csrf
+                                                <button type="submit">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                         <td>{{ $safety->risk_probability }}</td>
                                         <td>{{ $safety->risk_severity }}</td>
@@ -178,9 +179,12 @@
                                         <td></td>
                                         <td>IT3600</td>
                                         <td>
-                                            <button>
-                                                <i class="uil uil-file-info-alt"></i>
-                                            </button>
+                                            <form action="/download/{{ $safety->file_response }}" method="post">
+                                                @csrf
+                                                <button type="submit">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                         <td>Closed</td>
                                     </tr>
