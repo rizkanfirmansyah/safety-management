@@ -10,7 +10,8 @@ class SafetyController extends Controller
     //
     public function index()
     {
-        return view('safety');
+        $safeties = Safety::all();
+        return view('safety', compact('safeties'));
     }
 
     public function store(Request $request)
@@ -26,6 +27,8 @@ class SafetyController extends Controller
             $request->request->add(['file_reporter' => $filePath]);
             $request->request->add(['file_response' => $filePath]);
         }
+
+        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_reporter');

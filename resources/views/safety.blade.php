@@ -161,47 +161,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>HR0001/08/23</td>
-                                <td>160260</td>
-                                <td>K3</td>
-                                <td>2023-08-14</td>
-                                <td>2023-08-15</td>
-                                <td>FW</td>
-                                <td>Other</td>
-                                <td>test</td>
-                                <td>&ensp;</td>
-                                <td>S</td>
-                                <td>A</td>
-                                <td>SA</td>
-                                <td>&ensp;</td>
-                                <td style="background-color: red;"></td>
-                                <td></td>
-                                <td>IT3600</td>
-                                <td>&ensp;</td>
-                                <td>Closed</td>
-                            </tbody>
+                                @foreach ($safeties as $safety)
+                                    <tr>
+                                        <td>{{ $safety->number }}</td>
+                                        <td>160260</td>
+                                        <td>K3</td>
+                                        <td>{{ $safety->date_of_submission }}</td>
+                                        <td>{{ $safety->date_of_hazard_identification }}</td>
+                                        <td>FW</td>
+                                        <td>Other</td>
+                                        <td>{{ $safety->description }}</td>
+                                        <td>&ensp;</td>
+                                        <td>{{ $safety->risk_probability }}</td>
+                                        <td>{{ $safety->risk_severity }}</td>
+                                        <td>{{ $safety->risk_index }}</td>
+                                        <td>&ensp;</td>
+                                        <td style="background-color: red;"></td>
+                                        <td></td>
+                                        <td>IT3600</td>
+                                        <td>&ensp;</td>
+                                        <td>Closed</td>
+                                    </tr>
+                                @endforeach
 
-                            <tbody>
-                                <td>HR0001/08/23</td>
-                                <td>160260</td>
-                                <td>K3</td>
-                                <td>2023-08-14</td>
-                                <td>2023-08-15</td>
-                                <td>FW</td>
-                                <td>Other</td>
-                                <td>test</td>
-                                <td>&ensp;</td>
-                                <td>S</td>
-                                <td>A</td>
-                                <td>SA</td>
-                                <td style="background-color: yellow;">&ensp;</td>
-                                <td></td>
-                                <td></td>
-                                <td>IT3600</td>
-                                <td>&ensp;</td>
-                                <td>Closed</td>
                             </tbody>
-
 
                         </table>
 
