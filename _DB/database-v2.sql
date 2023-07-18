@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 
 -- Dumping data for table safety_management.migrations: ~8 rows (approximately)
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+INSERT IGNORE INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(7, '2014_10_12_000000_create_users_table', 1),
 	(8, '2014_10_12_100000_create_password_reset_tokens_table', 1),
 	(9, '2019_08_19_000000_create_failed_jobs_table', 1),
@@ -59,9 +59,9 @@ CREATE TABLE IF NOT EXISTS `organitations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table safety_management.organitations: ~2 rows (approximately)
+-- Dumping data for table safety_management.organitations: ~4 rows (approximately)
 /*!40000 ALTER TABLE `organitations` DISABLE KEYS */;
-INSERT INTO `organitations` (`id`, `name`, `created_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `organitations` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'Bid. Sistem Manajemen Basis Data', NULL, NULL),
 	(2, 'Dep. Enterprise Aplikasi & Solusi Migrasi', NULL, NULL),
 	(3, 'Bid. Sistem Pemeliharaan', NULL, NULL),
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
 
 -- Dumping data for table safety_management.roles: ~3 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', '2023-07-17 15:38:13', '2023-07-17 15:38:13'),
 	(2, 'Dept.Safety', NULL, NULL),
 	(4, 'Response Function', NULL, NULL);
@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `safeties` (
 
 -- Dumping data for table safety_management.safeties: ~3 rows (approximately)
 /*!40000 ALTER TABLE `safeties` DISABLE KEYS */;
-INSERT INTO `safeties` (`id`, `number`, `reporter`, `classification`, `date_of_submission`, `date_of_hazard_identification`, `location`, `type_operation`, `description`, `file_reporter`, `risk_probability`, `risk_severity`, `risk_index`, `cop`, `hm`, `co`, `responsible`, `file_response`, `created_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `safeties` (`id`, `number`, `reporter`, `classification`, `date_of_submission`, `date_of_hazard_identification`, `location`, `type_operation`, `description`, `file_reporter`, `risk_probability`, `risk_severity`, `risk_index`, `cop`, `hm`, `co`, `responsible`, `file_response`, `created_at`, `updated_at`) VALUES
 	(6, 'HR0001/07/23', NULL, '2', '2023-07-18', '2023-06-30', 'awdaw', '2', 'awdawdawd', 'file_upload/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', '2023-07-18 07:52:39', '2023-07-18 07:52:39'),
 	(7, 'HR0001/07/23', NULL, '1', '2023-07-18', '2023-07-18', 'Bandung', '3', 'hehe', 'file_upload/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', '2023-07-18 10:36:04', '2023-07-18 10:36:04'),
 	(8, 'HR0002/07/23', NULL, '2', '2023-07-18', '2023-07-12', 'FW', '3', 'Haard', 'file_upload/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', '2023-07-18 11:07:01', '2023-07-18 11:07:01');
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Dumping data for table safety_management.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `role_id`, `organitation_id`, `username`, `fullname`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+INSERT IGNORE INTO `users` (`id`, `role_id`, `organitation_id`, `username`, `fullname`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 	(2, 1, 2, '1', 'Admin Safety Management', NULL, '2023-07-17 15:13:16', '$2y$10$KVQr6qE.3tMWG.g4755noeyLBhrWDR9kXl/NLIHyU9v.hCUqgL8QC', NULL, '2023-07-17 15:13:16', '2023-07-18 10:57:39'),
 	(3, 2, 1, '222', 'Staff', NULL, '2023-07-18 10:58:04', '$2y$10$GpoTDcT3PwK8d0182E7/5.hOm/s69oOc0m/1/wzLKdSszqg3/QzxO', NULL, '2023-07-18 10:58:04', '2023-07-18 10:58:04');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
