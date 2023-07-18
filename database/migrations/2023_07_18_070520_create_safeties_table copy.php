@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('number', 125);
             $table->char('reporter', 50)->nullable();
             $table->char('classification', 50)->nullable();
-            $table->datetime('date_of_submission')->nullable();
-            $table->datetime('date_of_hazard_identification')->nullable();
+            $table->date('date_of_submission')->nullable();
+            $table->date('date_of_hazard_identification')->nullable();
             $table->string('location', 255)->nullable();
             $table->string('type_operation', 125)->nullable();
             $table->text('description')->nullable();

@@ -21,7 +21,7 @@ class Safety extends Model
             $lastRecord = static::get()->count();
             $year = date('y');
             $month = date('m');
-            $sequence = $lastRecord++;
+            $sequence = $lastRecord > 0 ? $lastRecord++ : 1;
             $sequence = str_pad($sequence, 4, '0', STR_PAD_LEFT);
 
             $model->Number = 'HR' . $sequence . '/' . $month . '/' . $year;
