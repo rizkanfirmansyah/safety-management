@@ -19,18 +19,20 @@
                     <span class="link-name">Def Safety</span>
                 </a>
             </li>
-            <li>
-                <a href="/users">
-                    <i class="uil uil-user"></i>
-                    <span class="link-name">Otoritas User</span>
-                </a>
-            </li>
-            <li>
-                <a href="/roles">
-                    <i class="uil uil-chat-bubble-user"></i>
-                    <span class="link-name">Role</span>
-                </a>
-            </li>
+            @if (auth()->user()->role_id === 1)
+                <li>
+                    <a href="/users">
+                        <i class="uil uil-user"></i>
+                        <span class="link-name">Otoritas User</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/roles">
+                        <i class="uil uil-chat-bubble-user"></i>
+                        <span class="link-name">Role</span>
+                    </a>
+                </li>
+            @endif
             <li>
                 <a href="/organitations">
                     <i class="uil uil-users-alt"></i>
