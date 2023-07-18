@@ -16,14 +16,7 @@
     @include('templates.nav')
 
     <section class="dashboard">
-        <div class="top">
-            <i class="uil uil-bars sidebar-toggle"></i>
-            <div class="petugas">
-                <i class="uil uil-role"></i>
-                <span>Annisa Fitria</span>
-            </div>
-        </div>
-        </div>
+        @include('templates.profile')
 
         <div class="dash-content">
             <div class="overview">
