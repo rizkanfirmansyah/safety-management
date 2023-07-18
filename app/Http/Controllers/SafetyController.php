@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Safety;
 use Illuminate\Http\Request;
 
 class SafetyController extends Controller
