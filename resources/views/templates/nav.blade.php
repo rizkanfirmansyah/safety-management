@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li>
-                <a href="/safety">
+                <a href="/safeties">
                     <i class="uil uil-file-edit-alt logo"></i>
                     <span class="link-name">Def Safety</span>
                 </a>
