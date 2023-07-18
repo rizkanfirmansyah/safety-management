@@ -16,14 +16,7 @@
     @include('templates.nav')
 
     <section class="dashboard">
-        <div class="top">
-            <i class="uil uil-bars sidebar-toggle"></i>
-            <div class="petugas">
-                <i class="uil uil-user"></i>
-                <span>Annisa Fitria</span>
-            </div>
-        </div>
-        </div>
+        @include('templates.profile')
 
         <div class="dash-content">
             <div class="overview">
@@ -114,8 +107,7 @@
                                                     <div class="mb-3">
                                                         <label for="exampleInputPassword1" class="form-label">Hazard
                                                             Description</label>
-                                                        <input type="text" class="form-control"
-                                                            name="description">
+                                                        <input type="text" class="form-control" name="description">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="formFile" class="form-label">File Upload</label>
