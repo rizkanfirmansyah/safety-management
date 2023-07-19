@@ -2,7 +2,7 @@
 
 Application Safety Management
 
-## USer Example
+## User Example
 
 **ADMIN**
 username : 1
