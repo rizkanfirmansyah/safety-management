@@ -54,15 +54,15 @@
                                                                 <label for="exampleInputEmail1"
                                                                     class="form-label">Category</label>
                                                                 <fieldset disabled="disabled">
-                                                                    <select class="form-select" name=""
+                                                                    <select class="form-select" name="classification"
                                                                         id="">
-                                                                        <option value="" selected>--Choose
+                                                                        <option value="">--Choose
                                                                             Category--
                                                                         </option>
-                                                                        @foreach ($organitations as $item)
-                                                                            <option value="{{ $item->id }}"
-                                                                                {{ $user->organitation_id == $item->id ? 'selected' : '' }}>
-                                                                                {{ $item->name }}
+                                                                        @foreach ($options as $item => $key)
+                                                                            <option value="{{ $key }}"
+                                                                                {{ $safety->classification == $key ? 'selected' : '' }}>
+                                                                                {{ $item }}
                                                                             </option>
                                                                         @endforeach
                                                                     </select>
@@ -75,7 +75,8 @@
                                                                     Submission</label>
                                                                 <fieldset disabled>
                                                                     <input type="text" id="disabledTextInput"
-                                                                        class="form-control" placeholder="14/07/2023">
+                                                                        class="form-control"
+                                                                        placeholder="{{ date('d/m/Y') }}">
                                                                 </fieldset>
                                                             </div>
                                                             <div class="mb-3">
