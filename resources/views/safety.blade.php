@@ -59,7 +59,7 @@
                                                                         <option value="">--Choose
                                                                             Category--
                                                                         </option>
-                                                                        @foreach ($options as $item => $key)
+                                                                        @foreach ($options as $key => $item)
                                                                             <option value="{{ $key }}"
                                                                                 {{ $safety->classification == $key ? 'selected' : '' }}>
                                                                                 {{ $item }}
@@ -86,14 +86,16 @@
                                                                     Hazard Identification</label>
                                                                 <fieldset disabled>
                                                                     <input type="text" class="form-control"
-                                                                        id="disabledTextInput">
+                                                                        id="disabledTextInput"
+                                                                        value="{{ $safety->date_of_hazard_identification }}">
                                                                 </fieldset>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleInputPassword1"
                                                                     class="form-label">Location</label>
                                                                 <fieldset disabled="disabled">
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control"
+                                                                        {{ $safety->location }}>
                                                                 </fieldset>
                                                             </div>
                                                             <div class="mb-3">
@@ -105,7 +107,7 @@
                                                                     <select class="form-select" name=""
                                                                         id="">
                                                                         <option>Choose Type</option>
-                                                                        @foreach ($options as $item => $key)
+                                                                        @foreach ($options as $key => $item)
                                                                             <option value="{{ $key }}"
                                                                                 {{ $safety->type_operation == $key ? 'selected' : '' }}>
                                                                                 {{ $item }}
@@ -139,11 +141,21 @@
                                                                     <option value="">-- Choose Risk
                                                                         Probability --
                                                                     </option>
-                                                                    <option {{$safety->risk_probability == 1 ? "selected" : ""</option>}} value="1">1</option>
-                                                                    <option {{$safety->risk_probability == 2 ? "selected" : ""}} value="2">2</option>
-                                                                    <option {{$safety->risk_probability == 3 ? "selected" : ""}} value="3">3</option>
-                                                                    <option {{$safety->risk_probability == 4 ? "selected" : ""}} value="4">4</option>
-                                                                    <option {{$safety->risk_probability == 5 ? "selected" : ""}} value="5">5</option>
+                                                                    <option
+                                                                        {{ $safety->risk_probability == 1 ? 'selected' : '' }}
+                                                                        value="1">1</option>
+                                                                    <option
+                                                                        {{ $safety->risk_probability == 2 ? 'selected' : '' }}
+                                                                        value="2">2</option>
+                                                                    <option
+                                                                        {{ $safety->risk_probability == 3 ? 'selected' : '' }}
+                                                                        value="3">3</option>
+                                                                    <option
+                                                                        {{ $safety->risk_probability == 4 ? 'selected' : '' }}
+                                                                        value="4">4</option>
+                                                                    <option
+                                                                        {{ $safety->risk_probability == 5 ? 'selected' : '' }}
+                                                                        value="5">5</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
@@ -154,11 +166,21 @@
                                                                     <option value="">-- Choose Risk
                                                                         Index --
                                                                     </option>
-                                                                    <option value="A">A</option>
-                                                                    <option value="B">B</option>
-                                                                    <option value="C">C</option>
-                                                                    <option value="D">D</option>
-                                                                    <option value="E">E</option>
+                                                                    <option
+                                                                        {{ $safety->risk_index == 'A' ? 'selected' : '' }}
+                                                                        value="A">A</option>
+                                                                    <option
+                                                                        {{ $safety->risk_index == 'B' ? 'selected' : '' }}
+                                                                        value="B">B</option>
+                                                                    <option
+                                                                        {{ $safety->risk_index == 'C' ? 'selected' : '' }}
+                                                                        value="C">C</option>
+                                                                    <option
+                                                                        {{ $safety->risk_index == 'D' ? 'selected' : '' }}
+                                                                        value="D">D</option>
+                                                                    <option
+                                                                        {{ $safety->risk_index == 'E' ? 'selected' : '' }}
+                                                                        value="E">E</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
