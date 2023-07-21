@@ -6,3 +6,10 @@
     </div>
 </div>
 </div>
+
+@if (session('success'))
+    <script>
+        const alertt = '{{ session('success') }}';
+        alert(alertt);
+    </script>
+@endif
