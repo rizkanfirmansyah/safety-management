@@ -104,19 +104,13 @@
                                                                 <fieldset disabled="disabled">
                                                                     <select class="form-select" name=""
                                                                         id="">
-                                                                        <option selected="">Choose Type</option>
-                                                                        <option value="1">Aircraft Maintenance
-                                                                        </option>
-                                                                        <option value="2">Aurcraft Component /
-                                                                            Interior
-                                                                            Maintenance</option>
-                                                                        <option value="3">Dismanting</option>
-                                                                        <option value="4">Minor / Major Repair
-                                                                        </option>
-                                                                        <option value="5">Ground Run</option>
-                                                                        <option value="6">Functional Test</option>
-                                                                        <option value="7">Aircraft Modification
-                                                                        </option>
+                                                                        <option>Choose Type</option>
+                                                                        @foreach ($options as $item => $key)
+                                                                            <option value="{{ $key }}"
+                                                                                {{ $safety->type_operation == $key ? 'selected' : '' }}>
+                                                                                {{ $item }}
+                                                                            </option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </fieldset>
                                                             </div>
@@ -125,7 +119,8 @@
                                                                     class="form-label">Hazard
                                                                     Description</label>
                                                                 <fieldset disabled="disabled">
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control"
+                                                                        value="{{ $safety->description }}">
                                                                 </fieldset>
                                                             </div>
                                                             <div class="mb-3">
@@ -139,24 +134,24 @@
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Risk
                                                                     Probability</label>
-                                                                <select class="form-select" name=""
+                                                                <select class="form-select" name="risk_probability"
                                                                     id="">
-                                                                    <option value="" selected>-- Choose Risk
+                                                                    <option value="">-- Choose Risk
                                                                         Probability --
                                                                     </option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                    <option value="3">3</option>
-                                                                    <option value="4">4</option>
-                                                                    <option value="5">5</option>
+                                                                    <option {{$safety->risk_probability == 1 ? "selected" : ""</option>}} value="1">1</option>
+                                                                    <option {{$safety->risk_probability == 2 ? "selected" : ""}} value="2">2</option>
+                                                                    <option {{$safety->risk_probability == 3 ? "selected" : ""}} value="3">3</option>
+                                                                    <option {{$safety->risk_probability == 4 ? "selected" : ""}} value="4">4</option>
+                                                                    <option {{$safety->risk_probability == 5 ? "selected" : ""}} value="5">5</option>
                                                                 </select>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="formFile" class="form-label">Risk
                                                                     Index</label>
-                                                                <select class="form-select" name=""
+                                                                <select class="form-select" name="risk_index"
                                                                     id="">
-                                                                    <option value="" selected>-- Choose Risk
+                                                                    <option value="">-- Choose Risk
                                                                         Index --
                                                                     </option>
                                                                     <option value="A">A</option>
@@ -171,13 +166,15 @@
                                                                     class="form-label">Post
                                                                     Mitigation</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="">
+                                                                    name="post_mitigation" id=""
+                                                                    value="{{ $safety->post_mitigation }}">
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleInputPassword1"
                                                                     class="form-label">Deadline</label>
                                                                 <input type="text" class="form-control"
-                                                                    id="">
+                                                                    name="deadline" id=""
+                                                                    value="{{ $safety->deadline }}">
                                                             </div>
                                                         </form>
                                                     </div>
@@ -223,7 +220,8 @@
                                     @foreach ($safeties as $safety)
                                         <tr>
                                             <td data-bs-toggle="modal"
-                                                data-bs-target="#updateSafety{{ $safety->id }}">{{ $safety->number }}
+                                                data-bs-target="#updateSafety{{ $safety->id }}">
+                                                {{ $safety->number }}
                                             </td>
                                             <td data-bs-toggle="modal"
                                                 data-bs-target="#updateSafety{{ $safety->id }}">160260</td>

@@ -37,7 +37,6 @@ class SafetyController extends Controller
         if ($file) {
             $filePath = $file->store('file_upload');
             $request->request->add(['file_reporter' => $filePath]);
-            $request->request->add(['file_response' => $filePath]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
@@ -101,12 +100,28 @@ class SafetyController extends Controller
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_reporter');
-            $validatedData['file_reporter'] = $filePath;
-            $validatedData['file_response'] = $filePath;
+            $filePath = $file->store('file_upload');
+            $request->request->add(['file_reporter' => $filePath]);
         }
 
-        $safety->update($validatedData);
+        $request->request->add(['date_of_submission' => date('Y-m-d')]);
+
+        // if ($fileReporter) {
+        //     $fileReporterPath = $fileReporter->store('file_reporter');
+        //     $validatedData['file_reporter'] = $fileReporterPath;
+        // }
+
+        // if ($fileResponse) {
+        //     $fileResponsePath = $fileResponse->store('file_response');
+        //     $validatedData['file_response'] = $fileResponsePath;
+        // }
+
+        try {
+            $safety->update($request->all());
+        } catch (\Throwable $th) {
+            return response($th->getMessage());
+        }
+
 
         return redirect()->route('safeties.index')
             ->with('success', 'Safety record updated successfully.');
