@@ -74,7 +74,7 @@
                                                                 Of
                                                                 Submission</label>
                                                             <fieldset disabled>
-                                                                <input type="date" id="disabledTextInput"
+                                                                <input type="text" id="disabledTextInput"
                                                                     class="form-control" name="date_of_submission"
                                                                     placeholder="{{ date('d/m/Y') }}"
                                                                     value="{{ date('d/m/Y') }}">
@@ -126,7 +126,7 @@
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save
+                                                        <button type="submit" class="btn btn-primary">Save
                                                             changes</button>
                                                     </div>
                                                 </div>
