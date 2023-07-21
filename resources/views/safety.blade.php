@@ -39,8 +39,10 @@
                                     <div class="modal fade" id="updateSafety{{ $safety->id }}" tabindex="-1"
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
-                                            <form method="post" action="{{ route('safeties.update', $safety->id) }}"
+                                            <form method="POST" action="{{ route('safeties.update', $safety->id) }}"
                                                 enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data
@@ -95,7 +97,7 @@
                                                                     class="form-label">Location</label>
                                                                 <fieldset disabled="disabled">
                                                                     <input type="text" class="form-control"
-                                                                        {{ $safety->location }}>
+                                                                        value="{{ $safety->location }}">
                                                                 </fieldset>
                                                             </div>
                                                             <div class="mb-3">
@@ -273,11 +275,17 @@
                                                 </form>
                                             </td>
                                             <td>{{ $safety->risk_probability }}</td>
-                                            <td>{{ $safety->risk_severity }}</td>
                                             <td>{{ $safety->risk_index }}</td>
-                                            <td>&ensp;</td>
-                                            <td style="background-color: red;"></td>
-                                            <td></td>
+                                            <td>{{ $safety->risk_probability }}{{ $safety->risk_index }}</td>
+                                            <td
+                                                style="background-color: {{ $safety->risk_probability == 1 ? 'green' : '' }};">
+                                            </td>
+                                            <td
+                                                style="background-color: {{ $safety->risk_probability > 4 ? 'red' : '' }};">
+                                            </td>
+                                            <td
+                                                style="background-color: {{ $safety->risk_probability == 2 ? 'yellow' : '' }};">
+                                            </td>
                                             <td>IT3600</td>
                                             <td>
                                                 <form action="/download/{{ $safety->file_response }}" method="post">
@@ -287,7 +295,13 @@
                                                     </button>
                                                 </form>
                                             </td>
-                                            <td>Closed</td>
+                                            <td>
+                                                @if ($safety->risk_probability >= 5)
+                                                    Closed
+                                                @else
+                                                    Open
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
 
