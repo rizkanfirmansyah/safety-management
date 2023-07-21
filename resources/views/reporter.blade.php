@@ -50,130 +50,78 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Category</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <select class="form-select" name=""
-                                                                        id="">
-                                                                        <option value="" selected>--Choose
-                                                                            Category--</option>
-                                                                        <option value="1">Aircraft Maintenance
-                                                                        </option>
-                                                                        <option value="2">Aurcraft Component /
-                                                                            Interior Maintenance</option>
-                                                                        <option value="3">Dismanting</option>
-                                                                        <option value="4">Minor / Major Repair
-                                                                        </option>
-                                                                        <option value="5">Ground Run</option>
-                                                                        <option value="6">Functional Test</option>
-                                                                        <option value="7">Aircraft Modification
-                                                                        </option>
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Date Of Submission</label>
-                                                                <fieldset disabled>
-                                                                    <input type="text" id="disabledTextInput"
-                                                                        class="form-control" placeholder="14/07/2023">
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Date Of Hazard
-                                                                    Identification</label>
-                                                                <fieldset disabled>
-                                                                    <input type="text" class="form-control"
-                                                                        id="disabledTextInput">
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Location</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <input type="text" class="form-control">
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Type of Operation</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <select class="form-select" name=""
-                                                                        id="">
-                                                                        <option selected="">Choose Type</option>
-                                                                        <option value="1">Aircraft Maintenance
-                                                                        </option>
-                                                                        <option value="2">Aurcraft Component /
-                                                                            Interior Maintenance</option>
-                                                                        <option value="3">Dismanting</option>
-                                                                        <option value="4">Minor / Major Repair
-                                                                        </option>
-                                                                        <option value="5">Ground Run</option>
-                                                                        <option value="6">Functional Test</option>
-                                                                        <option value="7">Aircraft Modification
-                                                                        </option>
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Hazard Description</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <input type="text" class="form-control">
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="formFile" class="form-label">File
-                                                                    Upload</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <input class="form-control" type="file"
-                                                                        id="formFile">
-                                                                </fieldset>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="formFile" class="form-label">Risk
-                                                                    Probability</label>
-                                                                <select class="form-select" name=""
-                                                                    id="">
-                                                                    <option value="" selected>-- Choose Risk
-                                                                        Probability --</option>
-                                                                    <option value="">1</option>
-                                                                    <option value="">2</option>
-                                                                    <option value="">3</option>
-                                                                    <option value="">4</option>
-                                                                    <option value="">5</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="formFile" class="form-label">Risk
-                                                                    Index</label>
-                                                                <select class="form-select" name=""
-                                                                    id="">
-                                                                    <option value="" selected>-- Choose Risk
-                                                                        Index --</option>
-                                                                    <option value="">A</option>
-                                                                    <option value="">B</option>
-                                                                    <option value="">C</option>
-                                                                    <option value="">D</option>
-                                                                    <option value="">E</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Post Mitigation</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="">
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1"
-                                                                    class="form-label">Deadline</label>
-                                                                <input type="text" class="form-control"
-                                                                    id="">
-                                                            </div>
-                                                        </form>
+                                                        @csrf
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1"
+                                                                class="form-label">Category</label>
+                                                            <select class="form-select" name="classification"
+                                                                id="classification">
+                                                                <option selected disabled value>--Choose Category--
+                                                                </option>
+                                                                <option value="1">Aircraft Maintenance</option>
+                                                                <option value="2">Aurcraft Component / Interior
+                                                                    Maintenance
+                                                                </option>
+                                                                <option value="3">Dismanting</option>
+                                                                <option value="4">Minor / Major Repair</option>
+                                                                <option value="5">Ground Run</option>
+                                                                <option value="6">Functional Test</option>
+                                                                <option value="7">Aircraft Modification</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1" class="form-label">Date
+                                                                Of
+                                                                Submission</label>
+                                                            <fieldset disabled>
+                                                                <input type="date" id="disabledTextInput"
+                                                                    class="form-control" name="date_of_submission"
+                                                                    placeholder="{{ date('d/m/Y') }}"
+                                                                    value="{{ date('d/m/Y') }}">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1" class="form-label">Date
+                                                                Of
+                                                                Hazard Identification</label>
+                                                            <input type="date" class="form-control"
+                                                                name="date_of_hazard_identification">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1"
+                                                                class="form-label">Location</label>
+                                                            <input type="text" class="form-control" name="location">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1" class="form-label">Type
+                                                                of
+                                                                Operation</label>
+                                                            <select class="form-select" name="type_operation"
+                                                                id="">
+                                                                <option selected disabled value>Choose Type</option>
+                                                                <option value="1">Aircraft Maintenance</option>
+                                                                <option value="2">Aurcraft Component / Interior
+                                                                    Maintenance
+                                                                </option>
+                                                                <option value="3">Dismanting</option>
+                                                                <option value="4">Minor / Major Repair</option>
+                                                                <option value="5">Ground Run</option>
+                                                                <option value="6">Functional Test</option>
+                                                                <option value="7">Aircraft Modification</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1" class="form-label">Hazard
+                                                                Description</label>
+                                                            <input type="text" class="form-control"
+                                                                name="description">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="formFile" class="form-label">File
+                                                                Upload</label>
+                                                            <input class="form-control" type="file"
+                                                                name="file_upload">
+                                                        </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
