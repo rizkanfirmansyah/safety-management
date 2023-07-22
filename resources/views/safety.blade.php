@@ -262,7 +262,8 @@
                                                 {{ $safety->description }}</td>
                                             <td data-bs-toggle="modal"
                                                 data-bs-target="#updateSafety{{ $safety->id }}">
-                                                {{ $options[$safety->type_operation] }}</td>
+                                                {{ $safety->type_operation < 1 ? '' : $options[$safety->type_operation] }}
+                                            </td>
                                             <td data-bs-toggle="modal"
                                                 data-bs-target="#updateSafety{{ $safety->id }}">
                                                 {{ $safety->description }}</td>

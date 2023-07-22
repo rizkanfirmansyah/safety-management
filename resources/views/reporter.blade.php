@@ -162,7 +162,8 @@
                                             <td>{{ $safety->date_of_submission }}</td>
                                             <td>{{ $safety->date_of_hazard_identification }}</td>
                                             <td>{{ $safety->description }}</td>
-                                            <td>{{ $options[$safety->type_operation] }}</td>
+                                            <td>{{ $safety->type_operation < 1 ? '' : $options[$safety->type_operation] }}
+                                            </td>
                                             <td>{{ $safety->description }}</td>
                                             <td>
                                                 <form action="/download/{{ $safety->file_reporter }}" method="post">
