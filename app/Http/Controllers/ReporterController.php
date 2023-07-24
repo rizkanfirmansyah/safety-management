@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Safety;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ReporterController extends Controller
@@ -29,15 +30,15 @@ class ReporterController extends Controller
     public function store(Request $request)
     {
 
-        $file = $request->file('file_upload');
+        $file = $request->file('file');
 
         // $fileReporter = $request->file('file_reporter');
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_upload');
+            $filePath = $file->store('file');
             $request->request->add(['file_reporter' => $filePath]);
-            $request->request->add(['file_response' => $filePath]);
+            // $request->request->add(['file_response' => $filePath]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
@@ -95,20 +96,21 @@ class ReporterController extends Controller
     {
         $safety = Safety::findOrFail($id);
 
-        $file = $request->file('file_upload');
+        $file = $request->file('file');
 
         // $fileReporter = $request->file('file_reporter');
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_reporter');
-            $validatedData['file_reporter'] = $filePath;
-            $validatedData['file_response'] = $filePath;
+            $filename =  date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/file', $filename);
+            $request->request->add(['file_reporter' => asset('storage/file/' . $filename)]);
         }
+        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
-        $safety->update($validatedData);
+        $safety->update($request->all());
 
-        return redirect()->route('safeties.index')
+        return redirect()->route('reporter.index')
             ->with('success', 'Safety record updated successfully.');
     }
 
