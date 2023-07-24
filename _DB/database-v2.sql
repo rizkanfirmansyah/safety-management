@@ -146,9 +146,9 @@ CREATE TABLE IF NOT EXISTS `safeties` (
 -- Dumping data for table safety_management.safeties: ~3 rows (approximately)
 /*!40000 ALTER TABLE `safeties` DISABLE KEYS */;
 INSERT IGNORE INTO `safeties` (`id`, `number`, `reporter`, `classification`, `date_of_submission`, `date_of_hazard_identification`, `location`, `type_operation`, `description`, `file_reporter`, `risk_probability`, `risk_severity`, `risk_index`, `cop`, `hm`, `co`, `responsible`, `file_response`, `created_at`, `updated_at`) VALUES
-	(6, 'HR0001/07/23', NULL, '2', '2023-07-18', '2023-06-30', 'awdaw', '2', 'awdawdawd', 'file_upload/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', '2023-07-18 07:52:39', '2023-07-18 07:52:39'),
-	(7, 'HR0001/07/23', NULL, '1', '2023-07-18', '2023-07-18', 'Bandung', '3', 'hehe', 'file_upload/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', '2023-07-18 10:36:04', '2023-07-18 10:36:04'),
-	(8, 'HR0002/07/23', NULL, '2', '2023-07-18', '2023-07-12', 'FW', '3', 'Haard', 'file_upload/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file_upload/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', '2023-07-18 11:07:01', '2023-07-18 11:07:01');
+	(6, 'HR0001/07/23', NULL, '2', '2023-07-18', '2023-06-30', 'awdaw', '2', 'awdawdawd', 'file/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file/y31FvVtDcePe1nslYqOPnM4DfmNs7O4Yg06ZDYLj.png', '2023-07-18 07:52:39', '2023-07-18 07:52:39'),
+	(7, 'HR0001/07/23', NULL, '1', '2023-07-18', '2023-07-18', 'Bandung', '3', 'hehe', 'file/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file/SkMwlA5vpLN1oIjtx2oeJtfAHNhYU7HzYX2F9bHX.png', '2023-07-18 10:36:04', '2023-07-18 10:36:04'),
+	(8, 'HR0002/07/23', NULL, '2', '2023-07-18', '2023-07-12', 'FW', '3', 'Haard', 'file/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'file/sZ5fwdrDYJenGaCrXtoPrVOJoIfLLkqAyoltxqED.png', '2023-07-18 11:07:01', '2023-07-18 11:07:01');
 /*!40000 ALTER TABLE `safeties` ENABLE KEYS */;
 
 -- Dumping structure for table safety_management.users
