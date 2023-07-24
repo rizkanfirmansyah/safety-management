@@ -29,31 +29,26 @@
                     <div class="tanggal">
                         {{-- @foreach ($safeties as $safety) --}}
                         <select class="form-select" name="month" aria-label="Default select example">
-                            <option selected=""> Bulan </option>
-
-
-                            {{-- <option value={{$created_at}} hidden></option> --}}
-                            {{-- <option value="">{{$safety->created_at}}</option> --}}
-                            <option value="">Februari</option>
-                            <option value="">Maret</option>
-                            <option value="">April</option>
-                            <option value="">Mei</option>
-                            <option value="">Juni</option>
-                            <option value="">Juli</option>
-                            <option value="">Agustus</option>
-                            <option value="">September</option>
-                            <option value="">Oktober</option>
-                            <option value="">November</option>
-                            <option value="">Desember</option>
-                            {{-- @endforeach --}}
+                            @foreach ($months as $key => $month)
+                                @if (isset($_GET['month']))
+                                    <option value="{{ $key }}" {{ $key == $_GET['month'] ? 'selected' : '' }}>
+                                        {{ $month }}</option>
+                                @else
+                                    <option value="{{ $key }}" {{ date('m') == $key ? 'selected' : '' }}>
+                                        {{ $month }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <select class="form-select" aria-label="Default select example" name="year">
-                            <option selected=""> Tahun </option>
-                            {{-- @foreach ($safeties as $safety) --}}
-                            <option>{{ Request::get('year') ?? date('y') }}</option>
-                            {{-- <option value="2023">2023</option>
-                                <option value="2024">2023</option> --}}
-                            {{-- @endforeach --}}
+                            @foreach ($years as $key => $year)
+                                @if (isset($_GET['year']))
+                                    <option value="{{ $key }}" {{ $_GET['year'] == $key ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @else
+                                    <option value="{{ $key }}" {{ date('Y') == $key ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <button type="submmit" class="btn btn-danger">
                             <i class="uil uil-filter"></i>
