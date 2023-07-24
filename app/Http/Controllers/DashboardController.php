@@ -61,14 +61,6 @@ class DashboardController extends Controller
         new Carbon();
         $timestemp = "2023-01-01 01:02:03";
         $year = Carbon::createFromFormat('Y-m-d H:i:s', $timestemp)->year;
-        $safeties = Safety::all();
-        if (isset($_GET['month']) && isset($_GET['year'])) {
-            $month = $_GET['month'];
-            $year = $_GET['year']; // The year you want to filter by
-            $safeties = Safety::whereMonth('date_of_submission', $month)
-                ->whereYear('date_of_submission', $year)
-                ->get();
-        }
         if (isset($_GET['month'])) {
             $month = $_GET['month'];
             $safeties = Safety::whereMonth('date_of_submission', $month)->get();
@@ -77,6 +69,17 @@ class DashboardController extends Controller
             $year = $_GET['year']; // The year you want to filter by
             $safeties = Safety::whereYear('date_of_submission', $year)->get();
         }
+        if (isset($_GET['month']) && isset($_GET['year'])) {
+            $month = $_GET['month'];
+            $year = $_GET['year']; // The year you want to filter by
+            $safeties = Safety::whereMonth('date_of_submission', $month)
+                ->whereYear('date_of_submission', $year)
+                ->get();
+        }
+        if (!isset($_GET['month']) && !isset($_GET['year'])) {
+            $safeties = Safety::all();
+        }
+
 
         return view('dashboard', compact('safeties', 'options', 'today', 'year', 'months', 'years'));
     }
