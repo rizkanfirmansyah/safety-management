@@ -361,13 +361,11 @@
                                         </td>
                                         <td>{{ $safety->description }}</td>
                                         @if ($safety->file_reporter == true)
-                                            <td>
-                                                <form action="/download/{{ $safety->file_reporter }}" method="post">
-                                                    @csrf
-                                                    <button type="submit">
-                                                        <i class="uil uil-file-info-alt"></i>
-                                                    </button>
-                                                </form>
+                                            <td data-bs-toggle="modal"
+                                                data-bs-target="#showFileResponse{{ $safety->id }}">
+                                                <button type="submit">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
                                             </td>
                                         @else
                                             <td>-</td>
@@ -412,6 +410,49 @@
                             </tbody>
 
                         </table>
+
+                        @foreach ($safeties as $safety)
+                            <div class="modal fade" id="showFileResponse{{ $safety->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">FILE
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{-- @if ($safety->id || $safety->file_reporter)  --}}
+
+                                            <img src="{{ $safety->file_reporter }}" class="img-fluid">
+
+
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
+
+
+                                            {{-- @endif --}}
+                                            {{-- @if ($safety->id || $safety->file_response) --}}
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
+                                            {{-- @endif --}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" data-bs-dismiss="modal"
+                                                class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                        {{-- <tr>
+                                            <td data-bs-toggle="modal"
+                                                data-bs-target="#updateSafety{{ $safety->id }}">
+                                                {{ $safety->number }}
+                                            </td>
+                                        </tr> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
