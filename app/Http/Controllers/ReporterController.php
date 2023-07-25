@@ -6,6 +6,8 @@ use App\Models\Safety;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\Response as FacadeResponse;
 
 class ReporterController extends Controller
 {
@@ -37,11 +39,11 @@ class ReporterController extends Controller
         if ($file) {
             $filePath = $file->store('file_upload');
             $request->request->add(['file_reporter' => $filePath]);
-            $request->request->add(['file_response' => $filePath]);
+            // $request->request->add(['file_response' => $filePath]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
-
+        
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_reporter');
         //     $validatedData['file_reporter'] = $fileReporterPath;
@@ -51,14 +53,33 @@ class ReporterController extends Controller
         //     $fileResponsePath = $fileResponse->store('file_response');
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
+        
 
+        
+            // $todo = new Safety();
+            // $todo->reporter = $reporter;
+            // // $todo->title = $request->get('title');
+            // $todo->save();
+        
+    
+    
+            
+            // use within single line code
+            // $id = IdGenerator::generate(['table' => 'todos', 'length' => 6, 'prefix' => date('y')]);
+            
+            // output: 160001
+            // $reporter = IdGenerator::generate(['table' => 'safeties', 'field'=>'reporter', 'length' => 6, 'prefix' => '16026']);  
+            // $todo = new Safety();
+            // $todo->reporter = $reporter;
+            // // // $todo->title = $request->get('title');
+            // $c = $todo->save();
         try {
-            Safety::create($request->all());
+            $c = Safety::create($request->all());
         } catch (\Throwable $th) {
             return response($th->getMessage());
         }
 
-        return redirect()->route('safeties.index')
+        return redirect()->route('reporter.index')
             ->with('success', 'Safety record created successfully.');
     }
 
@@ -70,7 +91,7 @@ class ReporterController extends Controller
      */
     public function show(Safety $safety)
     {
-        return view('safety.show', compact('safety'));
+        return view('reporter.show', compact('safety'));
     }
 
     /**
@@ -81,7 +102,7 @@ class ReporterController extends Controller
      */
     public function edit(Safety $safety)
     {
-        return view('safety.edit', compact('safety'));
+        return view('reporter.edit', compact('safety'));
     }
 
     /**
@@ -93,22 +114,34 @@ class ReporterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $request->validate([
+        //     'file_reporter' => 'image|mimes:jpeg,png,jpg'
+        // ]);
+
         $safety = Safety::findOrFail($id);
 
-        $file = $request->file('file_upload');
+        
+        $file = $request->file('file');
 
-        // $fileReporter = $request->file('file_reporter');
+        // $fileReporter = $request->file('file_upload');
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_reporter');
+            $filePath = $file->store('file');
+            // $request->request->add(['file_reporter' => $filePath]);
+
             $validatedData['file_reporter'] = $filePath;
-            $validatedData['file_response'] = $filePath;
+            // $validatedData['file_response'] = $filePath;
+            $safety->update($validatedData);
+
         }
+        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
-        $safety->update($validatedData);
+        // dd($request->all());
+        $safety->update($request->all());
+  
 
-        return redirect()->route('safeties.index')
+        return redirect()->route('reporter.index')
             ->with('success', 'Safety record updated successfully.');
     }
 
@@ -124,22 +157,26 @@ class ReporterController extends Controller
         $safety = Safety::findOrFail($id);
         $safety->delete();
 
-        return redirect()->route('safeties.index')
+        return redirect()->route('reporter.index')
             ->with('success', 'Safety record deleted successfully.');
     }
 
     public function download($path, $filename)
     {
+        
         $resource = '/app/' . $path . '/' . $filename;
 
         if (!Storage::exists($path)) {
             abort(404);
         }
 
+        // ob_end_clean();
+        // ob_start();
         $file = Storage::get($path);
-        $type = Storage::mimeType($path);
-
+        $type = Storage::mimeType($path);   
         return (new Response($file, 200))
+            // ->ob_end_clean()
+            // ->ob_start()
             ->header('Content-Type', $type)
             ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
     }

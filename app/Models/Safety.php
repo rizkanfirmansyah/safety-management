@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Carbon\Traits\Timestamp;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use PhpParser\Node\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Safety extends Model
 {
@@ -25,6 +28,24 @@ class Safety extends Model
             $sequence = str_pad($sequence, 4, '0', STR_PAD_LEFT);
 
             $model->Number = 'HR' . $sequence . '/' . $month . '/' . $year;
+            // $model->save();
+        });
+
+        self::creating(function($model) {
+            $model->Reporter = IdGenerator::generate(['table' => 'safeties', 'field'=>'reporter', 'length' => 6, 'prefix' => '16026']);
         });
     }
+
+//     public function getYearTime() : Attribute
+// {
+//     // return array('created_at', 'updated_at');
+//     // Carbon::createFromFormat('Y-m-d H:i:s', $time)->year;
+
+//     $time = "1900-01-01 00:00:00";
+//     $date = new Carbon( $time );   
+//     $date->year;
+// }
+
+
+    
 }

@@ -37,6 +37,7 @@ class SafetyController extends Controller
         if ($file) {
             $filePath = $file->store('file_upload');
             $request->request->add(['file_reporter' => $filePath]);
+            
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
@@ -50,11 +51,18 @@ class SafetyController extends Controller
         //     $fileResponsePath = $fileResponse->store('file_response');
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
+        
+        // if ($request->status == 'reject') {
+        //     return redirect()->route('reporter.index')
+        //     ->with('errors', 'Safety has been rejected.');
 
+        // }
         try {
             Safety::create($request->all());
         } catch (\Throwable $th) {
-            return response($th->getMessage());
+           
+                return response($th->getMessage());
+            
         }
 
         return redirect()->route('safeties.index')
@@ -93,19 +101,36 @@ class SafetyController extends Controller
     public function update(Request $request, $id)
     {
         $safety = Safety::findOrFail($id);
-
-        $file = $request->file('file_upload');
+        // $safety->fill($request->all());
+        $file = $request->file('file');
 
         // $fileReporter = $request->file('file_reporter');
         // $fileResponse = $request->file('file_response');
 
+       
         if ($file) {
-            $filePath = $file->store('file_upload');
-            $request->request->add(['file_reporter' => $filePath]);
+            $filePath = $file->store('public/file');
+            // $request->request->add(['file_response' => $filePath]);
+
+            $validatedData['file_response'] = $filePath;
+            // $validatedData['file_reporter'] = $filePath;
+
+            // $request->request->add(['file_reporter' => $filePath]);
+             $safety->update($validatedData);
+
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
+        if ($request->status == 'reject') {
+            $safety->update($request->all());
+            
+            return redirect()->route('reporter.index')
+            ->with('errors', 'Safety has been rejected.');
+
+        } 
+        // $safety->save();
+       
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_reporter');
         //     $validatedData['file_reporter'] = $fileReporterPath;
@@ -115,12 +140,20 @@ class SafetyController extends Controller
         //     $fileResponsePath = $fileResponse->store('file_response');
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
+        // if ($validatedData->passes() && $request->file('file')->isValid()) {
+        //     $safety->update($validatedData);
+            
+        // }
+        $safety->update($request->all());
 
-        try {
-            $safety->update($request->all());
-        } catch (\Throwable $th) {
-            return response($th->getMessage());
-        }
+
+        // $safety = $request->validateData;
+        // $safety->update($validatedData);
+        // $safety['validatedData'] = $validatedData;
+        // try {
+        // } catch (\Throwable $th) {
+        //     return response($th->getMessage());
+        // }
 
 
         return redirect()->route('safeties.index')
@@ -145,7 +178,9 @@ class SafetyController extends Controller
 
     public function download($path, $filename)
     {
+       
         $resource = '/app/' . $path . '/' . $filename;
+        // dd($resource);
 
         if (!Storage::exists($path)) {
             abort(404);
@@ -153,9 +188,13 @@ class SafetyController extends Controller
 
         $file = Storage::get($path);
         $type = Storage::mimeType($path);
-
+        // $imagePath = Storage::url($path);
+        // return response()->download(public_path($imagePath));
+    
         return (new Response($file, 200))
+            ->ob_end_clean()
             ->header('Content-Type', $type)
             ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+       
     }
 }

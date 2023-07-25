@@ -19,7 +19,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         }
 
         return redirect()->route('login')->with('error', 'Error!, Username or Password Wrong');

@@ -21,16 +21,29 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/', function(){
+    return view('index');
+});
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+// Route::get('/', [DashboardController::class, 'index'])->middleware('auth');
+// Route::resource('dashboard', DashboardController::class)->
+// Route::get('/', function(){
+//     $safeties = Safety::all();
+//     return view('dashboard', compact('safeties'));
+// });
 
+Route::resource('dashboard', DashboardController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('users', UserController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('organitations', OrganitationController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('roles', RoleController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('safeties', SafetyController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
 Route::resource('reporter', ReporterController::class)->only(['edit', 'update', 'destroy', 'index', 'store'])->middleware('auth');
-Route::post('/download/{path}/{filename}', [SafetyController::class, 'download'])->name('safeties.download');
+// Route::post('/download/{path}/{filename}', [SafetyController::class, 'download'])->name('safeties.download');
+// Route::post('/download/{path}/{filename}', [ReporterController::class, 'download'])->name('safeties.download');
+Route::post('/download/{path}/{filename}', [DashboardController::class, 'download'])->name('safeties.download');
+// Route::post('/download/{path}/{filename}', [ReporterController::class, 'download'])->name('safeties.download');
+
+Route::get('/q', [DashboardController::class, 'filter']);
