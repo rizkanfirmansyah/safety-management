@@ -24,9 +24,9 @@ class SafetyController extends Controller
         ];
         // $safeties = Safety::all();
         $safeties = Safety::whereNotNull('file_response')
-                ->orWhere('status', '!=', 'reject')
-                ->get();
-                // dd($safeties);
+            ->orWhere('status', '!=', 'reject')
+            ->get();
+        // dd($safeties);
         return view('safety', compact('safeties', 'options'));
     }
 
@@ -55,7 +55,7 @@ class SafetyController extends Controller
         //     $fileResponsePath = $fileResponse->store('file_response');
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
-        
+
         // if ($request->status == 'reject') {
         //     return redirect()->route('reporter.index')
         //     ->with('errors', 'Safety has been rejected.');
@@ -64,9 +64,8 @@ class SafetyController extends Controller
         try {
             Safety::create($request->all());
         } catch (\Throwable $th) {
-           
-                return response($th->getMessage());
-            
+
+            return response($th->getMessage());
         }
 
         return redirect()->route('safeties.index')
@@ -111,28 +110,30 @@ class SafetyController extends Controller
         // $fileReporter = $request->file('file_response');
         // $fileResponse = $request->file('file_response');
 
-       
+
         if ($file) {
-            $filename = date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $filename =  date('YmdHis') . $file->getClientOriginalName();
             $filePath = $file->storeAs('public/file', $filename);
             $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
-            
+
+            // $request->request->add(['file_response' => $filePath]);
+
             $validatedData['file_response'] = $filePath;
             // $validatedData['file_response'] = $filePath;
-            $safety->update($validatedData);
+            // $safety->update($validatedData);
+
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         if ($request->status == 'reject') {
             $safety->update($request->all());
-            
-            return redirect()->route('reporter.index')
-            ->with('errors', 'Safety has been rejected.');
 
-        } 
+            return redirect()->route('reporter.index')
+                ->with('errors', 'Safety has been rejected.');
+        }
         // $safety->save();
-       
+
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_response');
         //     $validatedData['file_response'] = $fileReporterPath;
@@ -144,7 +145,7 @@ class SafetyController extends Controller
         // }
         // if ($validatedData->passes() && $request->file('file')->isValid()) {
         //     $safety->update($validatedData);
-            
+
         // }
         try {
             $safety->update($request->all());
@@ -183,7 +184,7 @@ class SafetyController extends Controller
 
     public function download($path, $filename)
     {
-       
+
         $resource = '/app/' . $path . '/' . $filename;
         // dd($resource);
 
@@ -195,11 +196,10 @@ class SafetyController extends Controller
         $type = Storage::mimeType($path);
         // $imagePath = Storage::url($path);
         // return response()->download(public_path($imagePath));
-    
+
         return (new Response($file, 200))
             ->ob_end_clean()
             ->header('Content-Type', $type)
             ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
-       
     }
 }
