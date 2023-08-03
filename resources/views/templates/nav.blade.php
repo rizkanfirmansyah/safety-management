@@ -21,12 +21,14 @@
                 </a>
             </li>
             @endif
+            @if (auth()->user()->role_id != 2)
             <li>
                 <a href="/reporter">
                     <i class="uil uil-file-edit-alt logo"></i>
                     <span class="link-name">Reporter</span>
                 </a>
             </li>
+            @endif
             @if (auth()->user()->role_id === 1)
                 <li>
                     <a href="/users">

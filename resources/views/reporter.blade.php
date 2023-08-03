@@ -224,6 +224,7 @@
                                 <th style="width: 110px;">Risk Probability</th>
                                 <th style="width: 110px;">Risk Severity</th>
                                 <th style="width: 110px;">Risk Index</th>
+                                <th style="width: 110px;">Post Mitigation</th>
                                 <th style="width: 70px;">COP</th>
                                 <th style="width: 70px;">HM</th>
                                 <th style="width: 70px;">CO</th>
@@ -273,6 +274,7 @@
                                         <td>{{ $safety->risk_probability }}</td>
                                         <td>{{ $safety->risk_index }}</td>
                                         <td>{{ $safety->risk_probability }}{{ $safety->risk_index }}</td>
+                                        <td>{{$safety->post_mitigation}}</td>
                                         @if ($safety->risk_probability != null)
                                         <td
                                             style="background-color: {{ $safety->risk_probability <= 2 ? 'green' : '' }};">
@@ -301,14 +303,16 @@
                                         <td>
                                         {{ $safety->status }}
                                         </td>
-                                       
-                                        <td class="flex flex-col">
-                                            <button type="button" class="btn btn-icon btn-sm btn-warning"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $safety->id }}">
-                                                <i class="uil uil-edit edit"></i>
-                                            </button>                                         
-                                        </td>
+                                       @if ($safety->status != 'close')
+                                           
+                                       <td class="flex flex-col">
+                                           <button type="button" class="btn btn-icon btn-sm btn-warning"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#editModal{{ $safety->id }}">
+                                               <i class="uil uil-edit edit"></i>
+                                           </button>                                         
+                                       </td>
+                                       @endif
                                     </tr>
                                 {{-- @endif --}}
                             @endforeach

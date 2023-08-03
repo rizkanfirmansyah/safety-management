@@ -387,7 +387,9 @@
                                                         <select name="status" class="form-select"
                                                             id="">
                                                             <option> {{ $safety->status }}</option>
+                                                            {{-- @if ($safety->status != 'reject')
                                                             <option value="open">Open</option>
+                                                            @endif --}}
                                                             <option value="close">Closed</option>
                                                             <option value="reject">Reject</option>
                                                         </select>
@@ -421,6 +423,7 @@
                                         <th style="width: 110px;">Risk Probability</th>
                                         <th style="width: 110px;">Risk Severity</th>
                                         <th style="width: 110px;">Risk Index</th>
+                                        <th style="width: 110px;">Post Mitigation</th>
                                         <th style="width: 70px;">COP</th>
                                         <th style="width: 70px;">HM</th>
                                         <th style="width: 70px;">CO</th>
@@ -470,6 +473,7 @@
                                                 <td>{{ $safety->risk_probability }}</td>
                                                 <td>{{ $safety->risk_index }}</td>
                                                 <td>{{ $safety->risk_probability }}{{ $safety->risk_index }}</td>
+                                                <td>{{$safety->post_mitigation}}</td>
                                                 @if ($safety->risk_probability != null)
                                                 <td
                                                     style="background-color: {{ $safety->risk_probability <= 2 ? 'green' : '' }};">
@@ -499,7 +503,7 @@
                                                 data-bs-target="#updateSafety{{ $safety->id }}">
                                                 {{ $safety->status }}
                                                 </td>
-                                               
+                                                @if ($safety->status != 'close')
                                                 <td class="flex flex-col">
                                                     <button type="button" class="btn btn-icon btn-sm btn-warning"
                                                         data-bs-toggle="modal"
@@ -507,6 +511,7 @@
                                                         <i class="uil uil-edit edit"></i>
                                                     </button>                                         
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endif
                                     @endforeach
