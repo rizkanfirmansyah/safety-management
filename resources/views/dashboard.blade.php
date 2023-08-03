@@ -29,31 +29,26 @@
                     <div class="tanggal">
                         {{-- @foreach ($safeties as $safety) --}}
                         <select class="form-select" name="month" aria-label="Default select example">
-                            <option selected=""> Bulan </option>
-            
-                  
-                                {{-- <option value={{$created_at}} hidden></option> --}}
-                                {{-- <option value="">{{$safety->created_at}}</option> --}}
-                                <option value="">Februari</option>
-                                <option value="">Maret</option>
-                                <option value="">April</option>
-                                <option value="">Mei</option>
-                                <option value="">Juni</option>
-                                <option value="">Juli</option>
-                                <option value="">Agustus</option>
-                                <option value="">September</option>
-                                <option value="">Oktober</option>
-                                <option value="">November</option>
-                                <option value="">Desember</option>
-                            {{-- @endforeach --}}
+                            @foreach ($months as $key => $month)
+                                @if (isset($_GET['month']))
+                                    <option value="{{ $key }}" {{ $key == $_GET['month'] ? 'selected' : '' }}>
+                                        {{ $month }}</option>
+                                @else
+                                    <option value="{{ $key }}" {{ date('m') == $key ? 'selected' : '' }}>
+                                        {{ $month }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <select class="form-select" aria-label="Default select example" name="year">
-                            <option selected=""> Tahun </option>
-                            {{-- @foreach ($safeties as $safety) --}}
-                                <option>{{{Request::get('year') ?? date('y')}}}</option>
-                                {{-- <option value="2023">2023</option>
-                                <option value="2024">2023</option> --}}
-                            {{-- @endforeach --}}
+                            @foreach ($years as $key => $year)
+                                @if (isset($_GET['year']))
+                                    <option value="{{ $key }}" {{ $_GET['year'] == $key ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @else
+                                    <option value="{{ $key }}" {{ date('Y') == $key ? 'selected' : '' }}>
+                                        {{ $year }}</option>
+                                @endif
+                            @endforeach
                         </select>
                         <button type="submmit" class="btn btn-danger">
                             <i class="uil uil-filter"></i>
@@ -68,27 +63,26 @@
                     <div class="table-atas">
                         <p>Details</p>
                         <div class="searchbar">
-                          
                             <input type="text" placeholder="Search" class="search">
                             <button type="button" class="btn btn-primary add" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 +ADD
                             </button>
-                                <!-- MODAL -->
-                                {{-- @foreach ($safeties as $safety) --}}
-                                    
-                                <form method="post" action="{{route('dashboard.store')}}">
-                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                            <!-- MODAL -->
+                            {{-- @foreach ($safeties as $safety) --}}
+
+                            <form method="post" action="{{ route('dashboard.store') }}">
+                                <div class="modal fade" id="exampleModal" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true"
-                                            enctype="multipart/form-data">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
+                                    enctype="multipart/form-data">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Data</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
                                                 {{-- @if ($safety->file_reporter == true)
                                                 <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class=" img-fluid">
                                                 @endif
@@ -96,166 +90,175 @@
                                                 <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid">
                                                 @endif --}}
 
-                                                    @csrf
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Category</label>
-                                                        <select class="form-select" name="classification" id="">
-                                                            <option value="" selected>--Choose Category--</option>
-                                                            <option value="1">Aircraft Maintenance</option>
-                                                            <option value="2">Aurcraft Component / Interior Maintenance
-                                                            </option>
-                                                            <option value="3">Dismanting</option>
-                                                            <option value="4">Minor / Major Repair</option>
-                                                            <option value="5">Ground Run</option>
-                                                            <option value="6">Functional Test</option>
-                                                            <option value="7">Aircraft Modification</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Date Of
-                                                            Submission</label>
-                                                        <fieldset disabled >
-                                                           {{-- @foreach ($safeties as $safety) --}}
-                                                        
-                                                           <input type="text" id="" name="date_of_submission"
-                                                               class="form-control" value="{{$today}}">
-                                                          
-                                                           {{-- @endforeach --}}
+                                                @csrf
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Category</label>
+                                                    <select class="form-select" name="classification" id="">
+                                                        <option value="" selected>--Choose Category--</option>
+                                                        <option value="1">Aircraft Maintenance</option>
+                                                        <option value="2">Aurcraft Component / Interior Maintenance
+                                                        </option>
+                                                        <option value="3">Dismanting</option>
+                                                        <option value="4">Minor / Major Repair</option>
+                                                        <option value="5">Ground Run</option>
+                                                        <option value="6">Functional Test</option>
+                                                        <option value="7">Aircraft Modification</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Date Of
+                                                        Submission</label>
+                                                    <fieldset disabled>
+                                                        {{-- @foreach ($safeties as $safety) --}}
 
-                                                               
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Date Of Hazard
-                                                             Identification</label>
-                                                         <input type="date" name="date_of_hazard_identification" class="form-control">
-                                                    </div> 
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1"
-                                                            class="form-label">Location</label>
-                                                        <input type="text" name="location" class="form-control">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Type of
-                                                            Operation</label>
-                                                        <select class="form-select" name="type_operation" id="">
-                                                            <option selected="">Choose Type</option>
-                                                            <option value="1">Aircraft Maintenance</option>
-                                                            <option value="2">Aurcraft Component / Interior
-                                                                Maintenance
-                                                            </option>
-                                                            <option value="3">Dismanting</option>
-                                                            <option value="4">Minor / Major Repair</option>
-                                                            <option value="5">Ground Run</option>
-                                                            <option value="6">Functional Test</option>
-                                                            <option value="7">Aircraft Modification</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Hazard
-                                                            Description</label>
-                                                        <input type="text" name="description" class="form-control">
-                                                    </div>
-                                                    {{-- <div class="mb-3">
+                                                        <input type="text" id="" name="date_of_submission"
+                                                            class="form-control" value="{{ date('d-M-Y') }}">
+
+                                                        {{-- @endforeach --}}
+
+
+                                                    </fieldset>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Date Of Hazard
+                                                        Identification</label>
+                                                    <input type="date" name="date_of_hazard_identification"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1"
+                                                        class="form-label">Location</label>
+                                                    <input type="text" name="location" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Type of
+                                                        Operation</label>
+                                                    <select class="form-select" name="type_operation" id="">
+                                                        <option selected="">Choose Type</option>
+                                                        <option value="1">Aircraft Maintenance</option>
+                                                        <option value="2">Aurcraft Component / Interior
+                                                            Maintenance
+                                                        </option>
+                                                        <option value="3">Dismanting</option>
+                                                        <option value="4">Minor / Major Repair</option>
+                                                        <option value="5">Ground Run</option>
+                                                        <option value="6">Functional Test</option>
+                                                        <option value="7">Aircraft Modification</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Hazard
+                                                        Description</label>
+                                                    <input type="text" name="description" class="form-control">
+                                                </div>
+                                                {{-- <div class="mb-3">
                                                         <label for="formFile" class="form-label">File Upload</label>
                                                         <input class="form-control" name="file_upload" type="file">
                                                     </div> --}}
-                                                  
-                                                  
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                                </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
-                                    </form>
                                     </div>
-                                {{-- @endforeach --}}
-                                    @foreach ($safeties as $safety)
-                                    <form method="POST" action="{{ route('dashboard.update', $safety->id) }}">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="modal fade" id="editModal{{ $safety->id }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT DATA
-                                                        </h1>
-                                                        <button type="button" class="btn-close"
-                                                            data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                    
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1" class="form-label">Category</label>
-                                                            <select class="form-select" name="classificaction" id="">
-                                                                <option value="">--Choose Category--</option>
-                                                                @foreach ($options as $key => $item)
-                                                                <option value="{{ $key }}"
-                                                                    {{ $safety->classification == $key ? 'selected' : '' }}>
-                                                                    {{ $item }}
-                                                                </option>
-                                                                @endforeach
-                                                                <option value="1">Aircraft Maintenance</option>
-                                                                <option value="2">Aurcraft Component / Interior Maintenance</option>
-                                                                <option value="3">Dismanting</option>
-                                                                <option value="4">Minor / Major Repair</option>
-                                                                <option value="5">Ground Run</option>
-                                                                <option value="6">Functional Test</option>
-                                                                <option value="7">Aircraft Modification</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Date Of
-                                                                Submission</label>
-                                                            <fieldset disabled>
-                                                                <input type="date" id="disabledTextInput"
-                                                                    class="form-control" placeholder="14/07/2023">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Date Of Hazard
-                                                                Identification</label>
-                                                            <input type="date" name="date_of_hazard_identification" value="{{$safety->date_of_hazard_identification}}" class="form-control">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Location</label>
-                                                            <input type="text" name="location" value="{{$safety->location}}" class="form-control">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Type of
-                                                                Operation</label>
-                                                            <select class="form-select" name="type_operation" id="">
-                                                                <option>Choose Type</option>
-                                                                @foreach ($options as $key => $item)
-                                                                    <option value="{{ $key }}"
-                                                                        {{ $safety->type_operation == $key ? 'selected' : '' }}>
-                                                                        {{ $item }}
-                                                                    </option>
-                                                                    @endforeach
-                                                                <option value="1">Aircraft Maintenance</option>
-                                                                <option value="2">Aurcraft Component / Interior
-                                                                    Maintenance
-                                                                </option>
-                                                                <option value="3">Dismanting</option>
-                                                                <option value="4">Minor / Major Repair</option>
-                                                                <option value="5">Ground Run</option>
-                                                                <option value="6">Functional Test</option>
-                                                                <option value="7">Aircraft Modification</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Hazard
-                                                                Description</label>
-                                                            <input type="text" value="{{$safety->description}}" name="description" class="form-control">
-                                                        </div>
-                                                
-                                                        
-                                                        {{-- <div class="mb-3">
+                            </form>
+                        </div>
+                        {{-- @endforeach --}}
+                        @foreach ($safeties as $safety)
+                            <form method="POST" action="{{ route('dashboard.update', $safety->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal fade" id="editModal{{ $safety->id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT DATA
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1"
+                                                        class="form-label">Category</label>
+                                                    <select class="form-select" name="classificaction"
+                                                        id="">
+                                                        <option value="">--Choose Category--</option>
+                                                        @foreach ($options as $key => $item)
+                                                            <option value="{{ $key }}"
+                                                                {{ $safety->classification == $key ? 'selected' : '' }}>
+                                                                {{ $item }}
+                                                            </option>
+                                                        @endforeach
+                                                        <option value="1">Aircraft Maintenance</option>
+                                                        <option value="2">Aurcraft Component / Interior
+                                                            Maintenance</option>
+                                                        <option value="3">Dismanting</option>
+                                                        <option value="4">Minor / Major Repair</option>
+                                                        <option value="5">Ground Run</option>
+                                                        <option value="6">Functional Test</option>
+                                                        <option value="7">Aircraft Modification</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Date Of
+                                                        Submission</label>
+                                                    <fieldset disabled>
+                                                        <input type="date" id="disabledTextInput"
+                                                            class="form-control" placeholder="14/07/2023">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Date Of
+                                                        Hazard
+                                                        Identification</label>
+                                                    <input type="date" name="date_of_hazard_identification"
+                                                        value="{{ $safety->date_of_hazard_identification }}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1"
+                                                        class="form-label">Location</label>
+                                                    <input type="text" name="location"
+                                                        value="{{ $safety->location }}" class="form-control">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Type of
+                                                        Operation</label>
+                                                    <select class="form-select" name="type_operation" id="">
+                                                        <option>Choose Type</option>
+                                                        @foreach ($options as $key => $item)
+                                                            <option value="{{ $key }}"
+                                                                {{ $safety->type_operation == $key ? 'selected' : '' }}>
+                                                                {{ $item }}
+                                                            </option>
+                                                        @endforeach
+                                                        <option value="1">Aircraft Maintenance</option>
+                                                        <option value="2">Aurcraft Component / Interior
+                                                            Maintenance
+                                                        </option>
+                                                        <option value="3">Dismanting</option>
+                                                        <option value="4">Minor / Major Repair</option>
+                                                        <option value="5">Ground Run</option>
+                                                        <option value="6">Functional Test</option>
+                                                        <option value="7">Aircraft Modification</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1" class="form-label">Hazard
+                                                        Description</label>
+                                                    <input type="text" value="{{ $safety->description }}"
+                                                        name="description" class="form-control">
+                                                </div>
+
+
+                                                {{-- <div class="mb-3">
                                                             <fieldset disabled="disabled">
                                                                 <label for="formFile" class="form-label">File
                                                                     Upload</label>
@@ -263,60 +266,58 @@
                                                                     name="file_upload">
                                                             </fieldset>
                                                         </div> --}}
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Status</label>
-                                                                {{-- <fieldset disabled="disabled"> --}}
-                                                                    <select name="status" class="form-select" id="">
-                                                                        <option name="">{{$safety->status}}</option>
-                                                                        <option value="open">open</option>
-                                                                        {{-- <option value="close">Closed</option>
+                                                <div class="mb-3">
+                                                    <label for="exampleInputPassword1"
+                                                        class="form-label">Status</label>
+                                                    {{-- <fieldset disabled="disabled"> --}}
+                                                    <select name="status" class="form-select" id="">
+                                                        <option name="">{{ $safety->status }}</option>
+                                                        <option value="open">open</option>
+                                                        {{-- <option value="close">Closed</option>
                                                                         <option value="reject">Reject</option> --}}
-                                                                        {{-- <option value="">Responsible Function</option> --}}
-                                                                    </select>
-                                                                {{-- </fieldset> --}}
-                                                            </div>
-                                                  
-                                                        
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                                    </div>
+                                                        {{-- <option value="">Responsible Function</option> --}}
+                                                    </select>
+                                                    {{-- </fieldset> --}}
                                                 </div>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Save changes</button>
                                             </div>
                                         </div>
-                                    </form>
-                                @endforeach  
-                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        @endforeach
                     </div>
+                </div>
 
-                    <div class="table-section">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Number</th>
-                                    <th>Classification</th>
-                                    <th>Date of Submission</th>
-                                    <th style="width: 140px;">Date of Hazard Identification</th>
-                                    <th>Location</th>
-                                    <th>Type Operation</th>
-                                    <th>Description</th>
-                                    <th>File Reporter</th>
-                        
-                                    <th>File Response</th>
-                                    @foreach ($safeties as $safety)
-                                    @if ($safety->status == 'close' || $safety->status == 'reject' ) 
-                                    <th>Action</th>
-                                    
-                
+                <div class="table-section">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Classification</th>
+                                <th>Date of Submission</th>
+                                <th style="width: 140px;">Date of Hazard Identification</th>
+                                <th>Location</th>
+                                <th>Type Operation</th>
+                                <th>Description</th>
+                                <th>File Reporter</th>
+
+                                <th>File Response</th>
+                                @foreach ($safeties as $safety)
+                                    @if ($safety->status == 'close' || $safety->status == 'reject')
+                                        <th>Action</th>
                                     @endif
-                                    @endforeach
-                                </tr>
-                            </thead>
-                            
-                            @foreach ($safeties as $safety)
+                                @endforeach
+                            </tr>
+                        </thead>
+
+                        @foreach ($safeties as $safety)
                             <div class="modal fade" id="showFileReporter{{ $safety->id }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -324,29 +325,31 @@
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">FILE
                                             </h1>
-                                            <button type="button" class="btn-close"
-                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            {{-- @if ($safety->id || $safety->file_reporter )  --}}
-                                           
-                                            <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class=" img-fluid"> 
-                                       
-                                        
+                                            {{-- @if ($safety->id || $safety->file_reporter)  --}}
+
+                                            <img src="{{ $safety->file_reporter }}" class="img-fluid">
+
+
+
                                             {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
-                                       
-                                            
+
+
                                             {{-- @endif --}}
-                                            {{-- @if( $safety->id || $safety->file_response) --}}
+                                            {{-- @if ($safety->id || $safety->file_response) --}}
                                             {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
                                             {{-- @endif --}}
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                                            <button type="button" data-bs-dismiss="modal"
+                                                class="btn btn-primary">Save changes</button>
                                         </div>
-                            
+
                                         {{-- <tr>
                                             <td data-bs-toggle="modal"
                                                 data-bs-target="#updateSafety{{ $safety->id }}">
@@ -356,8 +359,8 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                            @foreach ($safeties as $safety)
+                        @endforeach
+                        @foreach ($safeties as $safety)
                             <div class="modal fade" id="showFileResponse{{ $safety->id }}" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -365,29 +368,30 @@
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">FILE
                                             </h1>
-                                            <button type="button" class="btn-close"
-                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            {{-- @if ($safety->id || $safety->file_reporter )  --}}
-                                           
-                                            <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> 
-                                       
-                                        
+                                            {{-- @if ($safety->id || $safety->file_reporter)  --}}
+
+                                            <img src="{{ $safety->file_response }}" class="img-fluid">
+
+
                                             {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
-                                       
-                                            
+
+
                                             {{-- @endif --}}
-                                            {{-- @if( $safety->id || $safety->file_response) --}}
+                                            {{-- @if ($safety->id || $safety->file_response) --}}
                                             {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
                                             {{-- @endif --}}
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">Close</button>
-                                            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Save changes</button>
+                                            <button type="button" data-bs-dismiss="modal"
+                                                class="btn btn-primary">Save changes</button>
                                         </div>
-                            
+
                                         {{-- <tr>
                                             <td data-bs-toggle="modal"
                                                 data-bs-target="#updateSafety{{ $safety->id }}">
@@ -397,76 +401,72 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
-                            <tbody>
-                          
-                                @foreach ($safeties as $safety)
+                        @endforeach
+                        <tbody>
+
+                            @foreach ($safeties as $safety)
                                 <tr>
                                     <td>{{ $safety->number }}</td>
                                     <td>{{ $safety->classification }}</td>
                                     <td>{{ $safety->date_of_submission }}</td>
                                     <td>{{ $safety->date_of_hazard_identification }}</td>
                                     <td>{{ $safety->location }}</td>
-                                    <td>{{ $safety->type_operation}}</td>
+                                    <td>{{ $safety->type_operation }}</td>
                                     <td>{{ $safety->description }}</td>
                                     @if ($safety->file_reporter == true)
-                                    <td data-bs-toggle="modal"
-                                    data-bs-target="#showFileReporter{{ $safety->id }}" >
-                                     {{-- <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class="img-thumbnail img-fluid"> --}}
-                                     <form action="/download/{{ $safety->file_reporter }}" method="post">
-                                         @csrf
-                                         <button type="button">
-                                             <i class="uil uil-file-info-alt"></i>
-                                         </button>
-                                     </form>
-                                    </td>
-                                    @endif
-                                    
-                                    @if ($safety->file_response == true)
-                               
                                         <td data-bs-toggle="modal"
-                                        data-bs-target="#showFileResponse{{ $safety->id }}" >
-                                        {{-- <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class="img-thumbnail img-fluid"> --}}
-                                        <form action="/download/{{ $safety->file_response }}" method="post">
-                                            @csrf
-                                            <button type="button">
-                                                <i class="uil uil-file-info-alt"></i>
-                                            </button>
-                                        </form>
+                                            data-bs-target="#showFileReporter{{ $safety->id }}">
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class="img-thumbnail img-fluid"> --}}
+                                            <form action="/download/{{ $safety->file_reporter }}" method="post">
+                                                @csrf
+                                                <button type="button">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
+                                            </form>
                                         </td>
-
                                     @endif
-                                    @if ($safety->status == 'close' || $safety->status == 'reject' )
-                                    <td class="flex flex-col">
-                                        <button type="button" class="btn btn-icon btn-sm btn-warning"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $safety->id }}">
-                                            <i class="uil uil-edit edit"></i>
-                                        </button>
-                                        <form action="{{ route('dashboard.destroy', $safety->id) }}" method="POST"
-                                            class="p-0 m-0">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-icon btn-sm btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this user?')">
-                                                <i class="uil uil-trash-alt delete"></i>
+
+                                    @if ($safety->file_response == true)
+                                        <td data-bs-toggle="modal"
+                                            data-bs-target="#showFileResponse{{ $safety->id }}">
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class="img-thumbnail img-fluid"> --}}
+                                            <form action="/download/{{ $safety->file_response }}" method="post">
+                                                @csrf
+                                                <button type="button">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
+                                    @if ($safety->status == 'close' || $safety->status == 'reject')
+                                        <td class="flex flex-col">
+                                            <button type="button" class="btn btn-icon btn-sm btn-warning"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $safety->id }}">
+                                                <i class="uil uil-edit edit"></i>
                                             </button>
-                                        </form>
-                                    </td>
-                                  
+                                            <form action="{{ route('dashboard.destroy', $safety->id) }}"
+                                                method="POST" class="p-0 m-0">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-icon btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this user?')">
+                                                    <i class="uil uil-trash-alt delete"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     @endif
-                                </tr>    
-                            
-                                @endforeach
-                        
-                            </tbody>
+                                </tr>
+                            @endforeach
 
-                        </table>
+                        </tbody>
+
+                    </table>
 
 
-                    </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

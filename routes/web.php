@@ -21,8 +21,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function(){
-    return view('index');
+
+Route::get('/', function () {
+    return view('dashboard');
 });
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
@@ -44,6 +45,7 @@ Route::resource('reporter', ReporterController::class)->only(['edit', 'update', 
 // Route::post('/download/{path}/{filename}', [SafetyController::class, 'download'])->name('safeties.download');
 // Route::post('/download/{path}/{filename}', [ReporterController::class, 'download'])->name('safeties.download');
 Route::post('/download/{path}/{filename}', [DashboardController::class, 'download'])->name('safeties.download');
+Route::get('/images/{path}', [DashboardController::class, 'show'])->name('image.show');
 // Route::post('/download/{path}/{filename}', [ReporterController::class, 'download'])->name('safeties.download');
 
 Route::get('/q', [DashboardController::class, 'filter']);

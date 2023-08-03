@@ -27,17 +27,17 @@
                 <div class="activity">
                     <div class="table-responsive">
                         <div class="table-atas">
-                            @if(Session::has('errors'))
-                            <div class="alert alert-danger alert-dismissible show">
-                                {{ session('errors') }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    {{-- <span aria-hidden="true">&times;</span> --}}
-                                </button>
-                            </div>
+                            @if (Session::has('errors'))
+                                <div class="alert alert-danger alert-dismissible show">
+                                    {{ session('errors') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        {{-- <span aria-hidden="true">&times;</span> --}}
+                                    </button>
+                                </div>
                             @endif
                             <p>Safety Table</p>
                             <div class="">
-                              
+
                                 {{-- <input type="text" placeholder="Search" class="search ">
                                 <button type="button" class="btn btn-primary add" data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
@@ -164,22 +164,12 @@
                                                     <div class="modal-body">
                                                     
                                                         <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                            class="form-label">Category</label>
+                                                            <label for="exampleInputEmail1" class="form-label">Category</label>
                                                             <fieldset disabled="disabled">
-                                                                <select class="form-select" name="classification"
-                                                                    id="classification">
-                                                                    <option>--Choose Category--
-                                                                    </option>
-                                                                    @foreach ($options as $key => $item)
-                                                                    <option value="{{ $key }}"
-                                                                        {{ $safety->classification == $key ? 'selected' : '' }}>
-                                                                        {{ $item }}
-                                                                    </option>
-                                                                    @endforeach
+                                                                <select class="form-select" name="classification" id="">
+                                                                    <option value="" selected>--Choose Category--</option>
                                                                     <option value="1">Aircraft Maintenance</option>
-                                                                    <option value="2">Aurcraft Component / Interior
-                                                                        Maintenance
+                                                                    <option value="2">Aurcraft Component / Interior Maintenance
                                                                     </option>
                                                                     <option value="3">Dismanting</option>
                                                                     <option value="4">Minor / Major Repair</option>
@@ -187,201 +177,313 @@
                                                                     <option value="6">Functional Test</option>
                                                                     <option value="7">Aircraft Modification</option>
                                                                 </select>
-                                                            </fieldset>    
+                                                            </fieldset>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Date
-                                                                Of
+                                                            <label for="exampleInputPassword1" class="form-label">Date Of
                                                                 Submission</label>
                                                             <fieldset disabled>
                                                                 <input type="text" id="disabledTextInput"
-                                                                    class="form-control"
-                                                                    value="{{ $safety->date_of_submission }}">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Date
-                                                                Of
-                                                                Hazard Identification</label>
-                                                            <fieldset disabled>
-                                                                <input type="text" class="form-control"
-                                                                    id="disabledTextInput"
-                                                                    value="{{ $safety->date_of_hazard_identification }}">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Location</label>
-                                                            <fieldset disabled="disabled">
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $safety->location }}">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Type
-                                                                of
-                                                                Operation</label>
-                                                            <fieldset disabled="disabled">
-                                                                <select class="form-select" name=""
-                                                                    id="">
-                                                                    <option>Choose Type</option>
-                                                                    @foreach ($options as $key => $item)
-                                                                        <option value="{{ $key }}"
-                                                                            {{ $safety->type_operation == $key ? 'selected' : '' }}>
-                                                                            {{ $item }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Hadzar Description</label>
-                                                            <fieldset disabled="disabled">
-                                                                <input type="text" class="form-control"
-                                                                    value="{{ $safety->description }}">
+                                                                    class="form-control" placeholder="14/07/2023">
                                                             </fieldset>
                                                         </div>
 
                                                         <div class="mb-3">
-                                                          
+                                                            <fieldset disabled="disabled">
                                                                 <label for="formFile" class="form-label">File
                                                                     Upload</label>
                                                                 <input class="form-control" type="file"
                                                                     name="file">
-                                                        
+                                                            </fieldset>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="formFile" class="form-label">Risk Probability</label>
                                                             <select class="form-select" name="risk_probability" id="">
-                                                            <option value="" disabled selected>-- Choose Risk Probability --</option>
-                                                            <option
-                                                                            {{ $safety->risk_probability == 1 ? 'selected' : '' }}
-                                                                            value="1">1</option>
-                                                                        <option
-                                                                            {{ $safety->risk_probability == 2 ? 'selected' : '' }}
-                                                                            value="2">2</option>
-                                                                        <option
-                                                                            {{ $safety->risk_probability == 3 ? 'selected' : '' }}
-                                                                            value="3">3</option>
-                                                                        <option
-                                                                            {{ $safety->risk_probability == 4 ? 'selected' : '' }}
-                                                                            value="4">4</option>
-                                                                        <option
-                                                                            {{ $safety->risk_probability == 5 ? 'selected' : '' }}
-                                                                            value="5">5</option>                        
+                                                              <option value="" selected>-- Choose Risk Probability --</option>
+                                                              <option value="1">1</option>
+                                                              <option value="2">2</option>
+                                                              <option value="3">3</option>
+                                                              <option value="4">4</option>
+                                                              <option value="5">5</option>
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="formFile" class="form-label">Risk Index</label>
                                                             <select class="form-select" name="risk_index" id="">
-                                                            <option value="" disabled selected>-- Choose Risk Index --</option>
-                                                            <option
-                                                                            {{ $safety->risk_index == 'A' ? 'selected' : '' }}
-                                                                            value="A">A</option>
-                                                                        <option
-                                                                            {{ $safety->risk_index == 'B' ? 'selected' : '' }}
-                                                                            value="B">B</option>
-                                                                        <option
-                                                                            {{ $safety->risk_index == 'C' ? 'selected' : '' }}
-                                                                            value="C">C</option>
-                                                                        <option
-                                                                            {{ $safety->risk_index == 'D' ? 'selected' : '' }}
-                                                                            value="D">D</option>
-                                                                        <option
-                                                                            {{ $safety->risk_index == 'E' ? 'selected' : '' }}
-                                                                            value="E">E</option>                         
+                                                              <option value="" selected>-- Choose Risk Index --</option>
+                                                              <option value="A">A</option>
+                                                              <option value="B">B</option>
+                                                              <option value="C">C</option>
+                                                              <option value="D">D</option>
+                                                              <option value="E">E</option>
                                                             </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Post Mitigation</label>
-                                                            <input type="text"name="post_mitigation" value="{{$safety->post_mitigation}}" class="form-control" id="">
+                                                            <label for="exampleInputPassword1"name="post_mitigation" class="form-label">Post Mitigation</label>
+                                                            <input type="text" class="form-control" id="">
                                                         </div>
-                                            
                                                         <div class="mb-3">
-                                                            <label for="exampleInputPassword1"
-                                                                class="form-label">Status</label>
-                                                                <fieldset disabled="disabled">
-                                                                    <select name="status" class="form-select" id="">
-                                                                        <option name="">{{$safety->status}}</option>
-                                                                        <option value="close">Closed</option>
-                                                                        <option value="reject">Reject</option>
-                                                                        {{-- <option value="">Responsible Function</option> --}}
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                        
+                                                            <label for="exampleInputPassword1" class="form-label">Deadline</label>
+                                                            <input type="date" class="form-control" name="date_of_hazard_identification" id="">
+                                                        </div>
+                                                            <div class="mb-3">
+                                                                <label for="exampleInputPassword1"
+                                                                    class="form-label">Status</label>
+                                                                    <fieldset disabled="disabled">
+                                                                        <select name="status" class="form-select" id="">
+                                                                            @foreach ($safeties as $safety)
+                                                                            <option>{{$safety->status}}</option>
+
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </fieldset>
+                                                                </div>
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                                        <button type="submit" class="btn btn-primary">Save
+                                                            changes</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
-                                @endforeach  
-                            
-                            </div>
-                        </div>
-                  
-                        <div class="table-section">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Number</th>
-                                        <th>Reporter</th>
-                                        <th style="width: 150px;">Classification</th>
-                                        <th style="width: 100px;">Date of Submission</th>
-                                        <th style="width: 150px;">Date of Hazard Identification</th>
-                                        <th>Location</th>
-                                        <th style="width: 150px;">Type Operation</th>
-                                        <th>Description</th>
-                                        <th>File Reporter</th>
-                                        {{-- <th>File Response</th> --}}
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($safeties as $safety)
-                                    {{-- @if ($safety->status != 'close' ) --}}
-                                        <tr>
-                                            <td>{{ $safety->number }}</td>
-                                            <td>{{ $safety->reporter }}</td>
-                                            <td>{{ $safety->classification }}</td>
+                                </form> --}}
 
-                                            {{-- <td>K3</td> --}}
-                                            <td>{{ $safety->date_of_submission }}</td>
-                                            <td>{{ $safety->date_of_hazard_identification }}</td>
-                                            <td>{{ $safety->location }}</td>
-                                            <td>{{ $safety->type_operation }}
+                            </div>
+                            @foreach ($safeties as $safety)
+                                <form method="POST" action="{{ route('reporter.update', $safety->id) }}"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal fade" id="editModal{{ $safety->id }}" tabindex="-1"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">EDIT DATA
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1"
+                                                            class="form-label">Category</label>
+                                                        <fieldset disabled="disabled">
+                                                            <select class="form-select" name="classification"
+                                                                id="classification">
+                                                                <option>--Choose Category--
+                                                                </option>
+                                                                @foreach ($options as $key => $item)
+                                                                    <option value="{{ $key }}"
+                                                                        {{ $safety->classification == $key ? 'selected' : '' }}>
+                                                                        {{ $item }}
+                                                                    </option>
+                                                                @endforeach
+                                                                <option value="1">Aircraft Maintenance</option>
+                                                                <option value="2">Aurcraft Component / Interior
+                                                                    Maintenance
+                                                                </option>
+                                                                <option value="3">Dismanting</option>
+                                                                <option value="4">Minor / Major Repair</option>
+                                                                <option value="5">Ground Run</option>
+                                                                <option value="6">Functional Test</option>
+                                                                <option value="7">Aircraft Modification</option>
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Date
+                                                            Of
+                                                            Submission</label>
+                                                        <fieldset disabled>
+                                                            <input type="text" id="disabledTextInput"
+                                                                class="form-control"
+                                                                value="{{ $safety->date_of_submission }}">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Date
+                                                            Of
+                                                            Hazard Identification</label>
+                                                        <fieldset disabled>
+                                                            <input type="text" class="form-control"
+                                                                id="disabledTextInput"
+                                                                value="{{ $safety->date_of_hazard_identification }}">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1"
+                                                            class="form-label">Location</label>
+                                                        <fieldset disabled="disabled">
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $safety->location }}">
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Type
+                                                            of
+                                                            Operation</label>
+                                                        <fieldset disabled="disabled">
+                                                            <select class="form-select" name="" id="">
+                                                                <option>Choose Type</option>
+                                                                @foreach ($options as $key => $item)
+                                                                    <option value="{{ $key }}"
+                                                                        {{ $safety->type_operation == $key ? 'selected' : '' }}>
+                                                                        {{ $item }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Hadzar
+                                                            Description</label>
+                                                        <fieldset disabled="disabled">
+                                                            <input type="text" class="form-control"
+                                                                value="{{ $safety->description }}">
+                                                        </fieldset>
+                                                    </div>
+
+                                                    <div class="mb-3">
+
+                                                        <label for="formFile" class="form-label">File
+                                                            Upload</label>
+                                                        <input class="form-control" type="file" name="file">
+
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Risk
+                                                            Probability</label>
+                                                        <select class="form-select" name="risk_probability"
+                                                            id="">
+                                                            <option value="" disabled selected>-- Choose Risk
+                                                                Probability --</option>
+                                                            <option
+                                                                {{ $safety->risk_probability == 1 ? 'selected' : '' }}
+                                                                value="1">1</option>
+                                                            <option
+                                                                {{ $safety->risk_probability == 2 ? 'selected' : '' }}
+                                                                value="2">2</option>
+                                                            <option
+                                                                {{ $safety->risk_probability == 3 ? 'selected' : '' }}
+                                                                value="3">3</option>
+                                                            <option
+                                                                {{ $safety->risk_probability == 4 ? 'selected' : '' }}
+                                                                value="4">4</option>
+                                                            <option
+                                                                {{ $safety->risk_probability == 5 ? 'selected' : '' }}
+                                                                value="5">5</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="formFile" class="form-label">Risk Index</label>
+                                                        <select class="form-select" name="risk_index" id="">
+                                                            <option value="" disabled selected>-- Choose Risk
+                                                                Index --</option>
+                                                            <option {{ $safety->risk_index == 'A' ? 'selected' : '' }}
+                                                                value="A">A</option>
+                                                            <option {{ $safety->risk_index == 'B' ? 'selected' : '' }}
+                                                                value="B">B</option>
+                                                            <option {{ $safety->risk_index == 'C' ? 'selected' : '' }}
+                                                                value="C">C</option>
+                                                            <option {{ $safety->risk_index == 'D' ? 'selected' : '' }}
+                                                                value="D">D</option>
+                                                            <option {{ $safety->risk_index == 'E' ? 'selected' : '' }}
+                                                                value="E">E</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Post
+                                                            Mitigation</label>
+                                                        <input type="text"name="post_mitigation"
+                                                            value="{{ $safety->post_mitigation }}"
+                                                            class="form-control" id="">
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1"
+                                                            class="form-label">Status</label>
+                                                        <fieldset disabled="disabled">
+                                                            <select name="status" class="form-select"
+                                                                id="">
+                                                                <option name="">{{ $safety->status }}</option>
+                                                                <option value="close">Closed</option>
+                                                                <option value="reject">Reject</option>
+                                                                {{-- <option value="">Responsible Function</option> --}}
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save
+                                                        changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endforeach
+
+                        </div>
+                    </div>
+
+                    <div class="table-section">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Reporter</th>
+                                    <th style="width: 150px;">Classification</th>
+                                    <th style="width: 100px;">Date of Submission</th>
+                                    <th style="width: 150px;">Date of Hazard Identification</th>
+                                    <th>Location</th>
+                                    <th style="width: 150px;">Type Operation</th>
+                                    <th>Description</th>
+                                    <th>File Reporter</th>
+                                    {{-- <th>File Response</th> --}}
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($safeties as $safety)
+                                    {{-- @if ($safety->status != 'close') --}}
+                                    <tr>
+                                        <td>{{ $safety->number }}</td>
+                                        <td>{{ $safety->reporter }}</td>
+                                        <td>{{ $safety->classification }}</td>
+
+                                        {{-- <td>K3</td> --}}
+                                        <td>{{ $safety->date_of_submission }}</td>
+                                        <td>{{ $safety->date_of_hazard_identification }}</td>
+                                        <td>{{ $safety->location }}</td>
+                                        <td>{{ $safety->type_operation }}
+                                        </td>
+                                        <td>{{ $safety->description }}</td>
+                                        @if ($safety->file_reporter == true)
+                                            <td data-bs-toggle="modal"
+                                                data-bs-target="#showFileResponse{{ $safety->id }}">
+                                                <button type="submit">
+                                                    <i class="uil uil-file-info-alt"></i>
+                                                </button>
                                             </td>
-                                            <td>{{ $safety->description }}</td>
-                                            @if ($safety->file_reporter == true)
-                                            <td>
-                                                <form action="/download/{{ $safety->file_reporter }}" method="post">
-                                                    @csrf
-                                                    <button type="submit">
-                                                        <i class="uil uil-file-info-alt"></i>
-                                                    </button>
-                                                </form>                                  
-                                            </td>
-                                            @else 
+                                        @else
                                             <td>-</td>
-                                            @endif
-                                                    {{-- <td data-bs-toggle="modal"
+                                        @endif
+                                        {{-- <td data-bs-toggle="modal"
                                                         data-bs-target="#updateSafety{{ $safety->id }}">
                                                         {{ $safety->number }}
                                                         <img src="{{ asset('storage/'.$safety->file_reporter)  }}" class="img-thumbnail img-fluid">
                                                     </td> --}}
 
-                                               
-                                                {{-- <img src="{{ asset('storage/file_reporter/'.$safety->file_reporter) }}" style="height: 50px;width:100px;"> --}}
-                                            {{-- <td>
+
+                                        {{-- <img src="{{ asset('storage/file_reporter/'.$safety->file_reporter) }}" style="height: 50px;width:100px;"> --}}
+                                        {{-- <td>
                                                 <form action="/download/{{ $safety->file_response }}" method="post">
                                                     @csrf
                                                     <button type="submit">
@@ -389,14 +491,14 @@
                                                     </button>
                                                 </form>
                                             </td> --}}
-                                   
-                                            <td class="flex flex-col">
-                                                <button type="button" class="btn btn-icon btn-sm btn-warning"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#editModal{{ $safety->id }}">
-                                                    <i class="uil uil-edit edit"></i>
-                                                </button>
-                                                {{-- <form action="{{ route('reporter.destroy', $safety->id) }}" method="POST"
+
+                                        <td class="flex flex-col">
+                                            <button type="button" class="btn btn-icon btn-sm btn-warning"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $safety->id }}">
+                                                <i class="uil uil-edit edit"></i>
+                                            </button>
+                                            {{-- <form action="{{ route('reporter.destroy', $safety->id) }}" method="POST"
                                                     class="p-0 m-0">
                                                     @csrf
                                                     @method('DELETE')
@@ -405,14 +507,57 @@
                                                         <i class="uil uil-trash-alt delete"></i>
                                                     </button>
                                                 </form> --}}
+                                        </td>
+                                    </tr>
+                                    {{-- @endif --}}
+                                @endforeach
+
+                            </tbody>
+
+                        </table>
+
+                        @foreach ($safeties as $safety)
+                            <div class="modal fade" id="showFileResponse{{ $safety->id }}" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">FILE
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{-- @if ($safety->id || $safety->file_reporter)  --}}
+
+                                            <img src="{{ $safety->file_reporter }}" class="img-fluid">
+
+
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
+
+
+                                            {{-- @endif --}}
+                                            {{-- @if ($safety->id || $safety->file_response) --}}
+                                            {{-- <img src="{{ asset('storage/'.$safety->file_response)  }}" class=" img-fluid"> --}}
+                                            {{-- @endif --}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                            <button type="button" data-bs-dismiss="modal"
+                                                class="btn btn-primary">Save changes</button>
+                                        </div>
+
+                                        {{-- <tr>
+                                            <td data-bs-toggle="modal"
+                                                data-bs-target="#updateSafety{{ $safety->id }}">
+                                                {{ $safety->number }}
                                             </td>
-                                        </tr>
-                                        {{-- @endif --}}
-                                    @endforeach
-
-                                </tbody>
-
-                            </table>
+                                        </tr> --}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

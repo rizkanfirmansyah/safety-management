@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Safety;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class SafetyController extends Controller
@@ -29,22 +30,22 @@ class SafetyController extends Controller
     public function store(Request $request)
     {
 
-        $file = $request->file('file_upload');
+        $file = $request->file('file');
 
-        // $fileReporter = $request->file('file_reporter');
+        // $fileReporter = $request->file('file_response');
         // $fileResponse = $request->file('file_response');
 
         if ($file) {
-            $filePath = $file->store('file_upload');
-            $request->request->add(['file_reporter' => $filePath]);
-            
+            $filename = Hash::make($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/file', $filename);
+            $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // if ($fileReporter) {
-        //     $fileReporterPath = $fileReporter->store('file_reporter');
-        //     $validatedData['file_reporter'] = $fileReporterPath;
+        //     $fileReporterPath = $fileReporter->store('file_response');
+        //     $validatedData['file_response'] = $fileReporterPath;
         // }
 
         // if ($fileResponse) {
@@ -101,23 +102,17 @@ class SafetyController extends Controller
     public function update(Request $request, $id)
     {
         $safety = Safety::findOrFail($id);
-        // $safety->fill($request->all());
-        $file = $request->file('file');
 
-        // $fileReporter = $request->file('file_reporter');
+        $file = $request->file('file_upload');
+
+        // $fileReporter = $request->file('file_response');
         // $fileResponse = $request->file('file_response');
 
        
         if ($file) {
-            $filePath = $file->store('public/file');
-            // $request->request->add(['file_response' => $filePath]);
-
-            $validatedData['file_response'] = $filePath;
-            // $validatedData['file_reporter'] = $filePath;
-
-            // $request->request->add(['file_reporter' => $filePath]);
-             $safety->update($validatedData);
-
+            $filename = date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/file', $filename);
+            $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
@@ -132,8 +127,8 @@ class SafetyController extends Controller
         // $safety->save();
        
         // if ($fileReporter) {
-        //     $fileReporterPath = $fileReporter->store('file_reporter');
-        //     $validatedData['file_reporter'] = $fileReporterPath;
+        //     $fileReporterPath = $fileReporter->store('file_response');
+        //     $validatedData['file_response'] = $fileReporterPath;
         // }
 
         // if ($fileResponse) {
