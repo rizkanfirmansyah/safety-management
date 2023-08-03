@@ -22,26 +22,29 @@ class SafetyController extends Controller
             6 => 'Functional Test',
             7 => 'Aircraft Modification',
         ];
-
-        $safeties = Safety::all();
+        // $safeties = Safety::all();
+        $safeties = Safety::whereNotNull('file_response')
+                ->orWhere('status', '!=', 'reject')
+                ->get();
+                // dd($safeties);
         return view('safety', compact('safeties', 'options'));
     }
 
     public function store(Request $request)
     {
 
-        $file = $request->file('file');
+        // $file = $request->file('file');
 
-        // $fileReporter = $request->file('file_response');
-        // $fileResponse = $request->file('file_response');
+        // // $fileReporter = $request->file('file_response');
+        // // $fileResponse = $request->file('file_response');
 
-        if ($file) {
-            $filename = Hash::make($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/file', $filename);
-            $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
-        }
+        // if ($file) {
+        //     $filename = Hash::make($file->getClientOriginalName()) . '.' . $file->getClientOriginalExtension();
+        //     $filePath = $file->storeAs('public/file', $filename);
+        //     $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
+        // }
 
-        $request->request->add(['date_of_submission' => date('Y-m-d')]);
+        // $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_response');
@@ -103,7 +106,7 @@ class SafetyController extends Controller
     {
         $safety = Safety::findOrFail($id);
 
-        $file = $request->file('file_upload');
+        $file = $request->file('file');
 
         // $fileReporter = $request->file('file_response');
         // $fileResponse = $request->file('file_response');
@@ -113,6 +116,10 @@ class SafetyController extends Controller
             $filename = date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
             $filePath = $file->storeAs('public/file', $filename);
             $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
+            
+            $validatedData['file_response'] = $filePath;
+            // $validatedData['file_response'] = $filePath;
+            $safety->update($validatedData);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
@@ -139,8 +146,11 @@ class SafetyController extends Controller
         //     $safety->update($validatedData);
             
         // }
-        $safety->update($request->all());
-
+        try {
+            $safety->update($request->all());
+        } catch (\Throwable $th) {
+            return response($th->getMessage());
+        }
 
         // $safety = $request->validateData;
         // $safety->update($validatedData);

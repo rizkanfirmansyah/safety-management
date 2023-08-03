@@ -24,8 +24,11 @@ class ReporterController extends Controller
             6 => 'Functional Test',
             7 => 'Aircraft Modification',
         ];
-
-        $safeties = Safety::all();
+        // $safeties = Safety::all();
+        $safeties = Safety::whereNotNull('file_reporter')
+            ->orWhere('status', 'reject')
+            ->get();
+        // dd($safeties);
         return view('reporter', compact('safeties', 'options'));
     }
 
@@ -39,12 +42,12 @@ class ReporterController extends Controller
 
         if ($file) {
             $filePath = $file->store('file');
-            $request->request->add(['file_reporter' => $filePath]);
+            $request->request->add(['file_response' => $filePath]);
             // $request->request->add(['file_response' => $filePath]);
         }
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
-        
+
         // if ($fileReporter) {
         //     $fileReporterPath = $fileReporter->store('file_reporter');
         //     $validatedData['file_reporter'] = $fileReporterPath;
@@ -54,26 +57,26 @@ class ReporterController extends Controller
         //     $fileResponsePath = $fileResponse->store('file_response');
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
-        
 
-        
-            // $todo = new Safety();
-            // $todo->reporter = $reporter;
-            // // $todo->title = $request->get('title');
-            // $todo->save();
-        
-    
-    
-            
-            // use within single line code
-            // $id = IdGenerator::generate(['table' => 'todos', 'length' => 6, 'prefix' => date('y')]);
-            
-            // output: 160001
-            // $reporter = IdGenerator::generate(['table' => 'safeties', 'field'=>'reporter', 'length' => 6, 'prefix' => '16026']);  
-            // $todo = new Safety();
-            // $todo->reporter = $reporter;
-            // // // $todo->title = $request->get('title');
-            // $c = $todo->save();
+
+
+        // $todo = new Safety();
+        // $todo->reporter = $reporter;
+        // // $todo->title = $request->get('title');
+        // $todo->save();
+
+
+
+
+        // use within single line code
+        // $id = IdGenerator::generate(['table' => 'todos', 'length' => 6, 'prefix' => date('y')]);
+
+        // output: 160001
+        // $reporter = IdGenerator::generate(['table' => 'safeties', 'field'=>'reporter', 'length' => 6, 'prefix' => '16026']);
+        // $todo = new Safety();
+        // $todo->reporter = $reporter;
+        // // // $todo->title = $request->get('title');
+        // $c = $todo->save();
         try {
             $c = Safety::create($request->all());
         } catch (\Throwable $th) {
@@ -129,25 +132,20 @@ class ReporterController extends Controller
         if ($file) {
             $filename =  date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
             $filePath = $file->storeAs('public/file', $filename);
-            $request->request->add(['file_reporter' => asset('storage/file/' . $filename)]);
-            $filePath = $file->store('file');
-            // $request->request->add(['file_reporter' => $filePath]);
+            $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
 
-            $validatedData['file_reporter'] = $filePath;
+            // $request->request->add(['file_response' => $filePath]);
+
+            $validatedData['file_response'] = $filePath;
             // $validatedData['file_response'] = $filePath;
             $safety->update($validatedData);
-
         }
-        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
-        $safety->update($request->all());
-        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // dd($request->all());
         $safety->update($request->all());
-  
 
-        return redirect()->route('reporter.index')
+
         return redirect()->route('reporter.index')
             ->with('success', 'Safety record updated successfully.');
     }
@@ -170,7 +168,7 @@ class ReporterController extends Controller
 
     public function download($path, $filename)
     {
-        
+
         $resource = '/app/' . $path . '/' . $filename;
 
         if (!Storage::exists($path)) {
@@ -180,7 +178,7 @@ class ReporterController extends Controller
         // ob_end_clean();
         // ob_start();
         $file = Storage::get($path);
-        $type = Storage::mimeType($path);   
+        $type = Storage::mimeType($path);
         return (new Response($file, 200))
             // ->ob_end_clean()
             // ->ob_start()

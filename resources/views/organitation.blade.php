@@ -24,7 +24,6 @@
             </div>
         </div>
         </div>
-
         <div class="dash-content">
             <div class="overview">
                 <div class="tittle">
@@ -162,7 +161,8 @@
             </div>
     </section>
 
-    <script src="../js/script.js"></script>
+    <script src="{{asset('assets/js/script.js')}}"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>

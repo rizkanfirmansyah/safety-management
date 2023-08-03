@@ -34,6 +34,14 @@ class Safety extends Model
         self::creating(function($model) {
             $model->Reporter = IdGenerator::generate(['table' => 'safeties', 'field'=>'reporter', 'length' => 6, 'prefix' => '16026']);
         });
+
+        static::saving(function ($model) {
+            // Cek apakah status berubah menjadi "reject"
+            if ($model->isDirty('status') && $model->status === 'reject') {
+                // Hapus data di kolom "file_response"
+                $model->file_response = null;
+            }
+        });
     }
 
 //     public function getYearTime() : Attribute

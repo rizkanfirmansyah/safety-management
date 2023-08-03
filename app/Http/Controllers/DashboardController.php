@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Safety;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,6 +24,7 @@ class DashboardController extends Controller
             6 => 'Functional Test',
             7 => 'Aircraft Modification'
         ];
+
         $months = [
             1 => 'Januari',
             2 => 'Februari',
@@ -50,24 +52,25 @@ class DashboardController extends Controller
             2024 => 2024,
             2025 => 2025,
         ];
-        // if ($request->has('month')) {
-        //     $month = $request->input('month');
-        //     $safeties = Safety::whereRaw('MONTH(created_at) = '.$month)->get();
-        //  }
-        // $d = Safety::find(1);
-        // echo $d->created_at;
+
+        $currentTime = now(); 
+        $fiveMinutesAgo = now()->subMinutes(5);
+
         $today = Carbon::now()->isoFormat('D MMMM Y');
         new Carbon();
         $timestemp = "2023-01-01 01:02:03";
         $year = Carbon::createFromFormat('Y-m-d H:i:s', $timestemp)->year;
         if (isset($_GET['month'])) {
             $month = $_GET['month'];
-            $safeties = Safety::whereMonth('date_of_submission', $month)->get();
+            $safeties = Safety::whereMonth('date_of_submission', $month)
+                ->get();
         }
+
         if (isset($_GET['year'])) {
             $year = $_GET['year']; // The year you want to filter by
             $safeties = Safety::whereYear('date_of_submission', $year)->get();
         }
+
         if (isset($_GET['month']) && isset($_GET['year'])) {
             $month = $_GET['month'];
             $year = $_GET['year']; // The year you want to filter by
@@ -75,40 +78,22 @@ class DashboardController extends Controller
                 ->whereYear('date_of_submission', $year)
                 ->get();
         }
+
         if (!isset($_GET['month']) && !isset($_GET['year'])) {
-            $safeties = Safety::all();
+            $safeties = Safety::where('status', '!=', 'closed')
+                ->whereDate('created_at', $currentTime->toDateString())
+                ->whereTime('created_at', '>=', $fiveMinutesAgo->toTimeString())
+                ->get();
         }
 
-
-        return view('dashboard', compact('safeties', 'options', 'today', 'year', 'months', 'years'));
-    }
-
-    public function filter(Request $request)
-    {
-        $options = [
-            1 => 'Aircraft Maintenance',
-            2 => 'Aircraft Component / Interior Maintenance',
-            3 => 'Dismantling',
-            4 => 'Minor / Major Repair',
-            5 => 'Ground Run',
-            6 => 'Functional Test',
-            7 => 'Aircraft Modification',
-        ];
-
-        $today = Carbon::now()->isoFormat('m');
-        $safeties = Safety::when($request->month != null, function ($q) use ($request) {
-            return $q->whereMonth('created_at', $request->month);
-        }, function ($q) use ($today) {
-            return $q->whereMonth('created_at', $today);
-        })
-            ->when($request->year != null, function ($q) use ($request) {
-                return $q->where('date_of_hazard_identification', $request->year);
-            })->get();
-        // if ($request->has('month')) {
-        //     $month = $request->input('month');
-        //     $safeties = Safety::whereRaw('MONTH(created_at) = '.$month)->get();
-        //  }
-        return view('dashboard', compact('safeties', 'options', 'today'));
+        return view('dashboard', [
+            'safeties' => $safeties,
+            'options' => $options,
+            'today' => $today,
+            'year' => $year,
+            'months' => $months,
+            'years' => $years,
+        ]);
     }
 
     public function store(Request $request)
@@ -116,20 +101,61 @@ class DashboardController extends Controller
 
         $file = $request->file('file');
 
-        // $fileReporter = $request->file('file_reporter');
-        // $fileResponse = $request->file('file_response');
+        // // $fileReporter = $request->file('file_upload');
+        // // $fileResponse = $request->file('file_response');
 
+        // // $fileReporter = $request->file('file_response');
+        // // $fileResponse = $request->file('file_response');
+        // $input = $request->all();
+
+
+        // if ($file) {
+        //     $filename = date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        //     $filePath = $file->storeAs('public/file', $filename);
+        //     $request->request->add(['file_response' => asset('storage/file/' . $filename)]);
+        // }
         if ($file) {
-            $filePath = $file->store('file');
-            $request->request->add(['file_reporter' => $filePath]);
-            $request->request->add(['file_response' => $filePath]);
+            $filename =  date('YmdHis') . $file->getClientOriginalName();
+            $filePath = $file->storeAs('public/file', $filename);
+            $request->request->add(['file_reporter' => asset('storage/file/' . $filename)]);
+
+            // $request->request->add(['file_reporter' => $filePath]);
+
+            $validatedData['file_reporter'] = $filePath;
+            // $validatedData['file_response'] = $filePath;
+            // $safety->update($validatedData);
+
         }
+        // if ($file) {
+
+        //     $request->request->add(['file_reporter' => asset('storage/file/' . $filename)]);
+        //     $validatedData['file_reporter'] = $filePath;
+
 
         $request->request->add(['date_of_submission' => date('Y-m-d')]);
+        $input = $request->all();
+
+
+        Safety::create($input);
+        return redirect()->route('dashboard.index')
+            ->with('success', 'Safety record created successfully.');
+        // $fileReporter = $request->file('file_response');
+        // $fileResponse = $request->file('file_response');
+
+        // if ($file) {
+        //     $filePath = $file->store('file');
+        //     $request->request->add(['file_reporter' => $filePath]);
+        //     // $request->request->add(['file_response' => $filePath]);
+        // }
+
+
+
+
+        // $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // if ($fileReporter) {
-        //     $fileReporterPath = $fileReporter->store('file_reporter');
-        //     $validatedData['file_reporter'] = $fileReporterPath;
+        //     $fileReporterPath = $fileReporter->store('file_response');
+        //     $validatedData['file_response'] = $fileReporterPath;
         // }
 
         // if ($fileResponse) {
@@ -137,14 +163,13 @@ class DashboardController extends Controller
         //     $validatedData['file_response'] = $fileResponsePath;
         // }
 
-        try {
-            Safety::create($request->except('risk_probability'));
-        } catch (\Throwable $th) {
-            return response($th->getMessage());
-        }
+        // try {
+        //     Safety::create($request->all());
+        // } catch (\Throwable $th) {
+        //     return response($th->getMessage());
+        // }
 
-        return redirect()->route('dashboard.index')
-            ->with('success', 'Safety record created successfully.');
+
     }
 
     /**
@@ -180,16 +205,29 @@ class DashboardController extends Controller
     {
         $safety = Safety::findOrFail($id);
 
-        // $file = $request->file('file');
 
-        // // $fileReporter = $request->file('file_reporter');
-        // // $fileResponse = $request->file('file_response');
+        $file = $request->file('file');
+
+        // $fileReporter = $request->file('file_response');
+        // $fileResponse = $request->file('file_response');
+
+
 
         // if ($file) {
-        //     $filePath = $file->store('file_reporter');
+        //     $filename =  date('YmdHis') . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        //     $filePath = $file->storeAs('public/file', $filename);
+        //     $request->request->add(['file_reporter' => asset('storage/file/' . $filename)]);
+        //     $filePath = $file->store('file');
+        //     // $request->request->add(['file_reporter' => $filePath]);
+
         //     $validatedData['file_reporter'] = $filePath;
-        //     $validatedData['file_response'] = $filePath;
+        //     // $validatedData['file_response'] = $filePath;
+        //     $safety->update($validatedData);
+
         // }
+
+
+        $request->request->add(['date_of_submission' => date('Y-m-d')]);
 
         // $safety->update($validatedData);
         $safety->update($request->all());
