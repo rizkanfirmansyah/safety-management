@@ -30,6 +30,19 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
+
+        // Define the validation rules
+        $rules = [
+            'username' => 'required|unique:users',
+            'fullname' => 'required',
+            'organitation_id' => 'required',
+            'role_id' => 'required',
+        ];
+
+        // Validate the incoming request data
+        $request->validate($rules);
+
+        // Fill the user attributes with the request data
         $user->fill($request->only([
             'username',
             'fullname',
@@ -59,12 +72,14 @@ class UserController extends Controller
     {
         // Logic to store a new user based on the request data
         $validatedData = $request->validate([
-            'username' => 'required',
+            'username' => 'required|unique:users',
             'fullname' => 'required',
             'password' => 'required',
             'organitation_id' => 'required',
             'role_id' => 'required',
         ]);
+
+        $request->validate($validatedData);
 
         // Buat instance model User dan simpan data pengguna baru
         $user = new User();
