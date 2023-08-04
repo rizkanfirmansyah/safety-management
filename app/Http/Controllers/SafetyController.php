@@ -24,7 +24,8 @@ class SafetyController extends Controller
         ];
         // $safeties = Safety::all();
         $safeties = Safety::whereNotNull('file_response')
-            ->orWhere('status', '!=', 'reject')
+            // ->where('status', '!=', 'reject')
+            ->where('status', '!=', 'close')
             ->get();
         // dd($safeties);
         return view('safety', compact('safeties', 'options'));
