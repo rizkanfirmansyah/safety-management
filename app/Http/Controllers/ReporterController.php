@@ -26,7 +26,7 @@ class ReporterController extends Controller
         ];
         // $safeties = Safety::all();
         $safeties = Safety::whereNotNull('file_reporter')
-            ->orWhere('status', 'reject')
+            ->where('status', '!=', 'close')
             ->get();
         // dd($safeties);
         return view('reporter', compact('safeties', 'options'));
