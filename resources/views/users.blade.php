@@ -28,7 +28,7 @@
                 <div class="activity">
                     <div class="table-responsive">
                         <div class="table-atas">
-                            <p>Users</p>
+                            <p>Users table</p>
                             <div class="">
                                 <input type="text" placeholder="Search" class="search">
                                 <button type="button" class="btn btn-primary add" data-bs-toggle="modal"
@@ -50,58 +50,77 @@
                                                     <div class="mb-3 row">
                                                         <label for="" class="col-sm-2">NIK</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" name="username">
+                                                            <input type="text"
+                                                                class="form-control @error('username') is-invalid @enderror"
+                                                                name="username" value="{{ old('username') }}">
+                                                            @error('username')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <label for="inputPassword" class="col-sm-2">Nama</label>
                                                         <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id=""
-                                                                name="fullname">
+                                                            <input type="text"
+                                                                class="form-control @error('fullname') is-invalid @enderror"
+                                                                name="fullname" value="{{ old('fullname') }}">
+                                                            @error('fullname')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <label for="inputPassword" class="col-sm-2">Password</label>
                                                         <div class="col-sm-10">
-                                                            <input type="password" class="form-control" id=""
+                                                            <input type="password"
+                                                                class="form-control @error('password') is-invalid @enderror"
                                                                 name="password">
+                                                            @error('password')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <label for="inputPassword"
                                                             class="col-sm-2 col-form-label">Organisasi</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-select form-select-sm ms-2"
-                                                                id="" name="organitation_id"
-                                                                class="form-select">
-                                                                <option value selected>--PILIH ORGANISASI
-                                                                </option>
+                                                            <select
+                                                                class="form-select form-select-sm ms-2 @error('organitation_id') is-invalid @enderror"
+                                                                name="organitation_id">
+                                                                <option value selected>--PILIH ORGANISASI--</option>
                                                                 @foreach ($organitations as $item)
-                                                                    <option value="{{ $item->id }}">
-                                                                        {{ $item->name }}
-                                                                    </option>
+                                                                    <option value="{{ $item->id }}"
+                                                                        {{ old('organitation_id') == $item->id ? 'selected' : '' }}>
+                                                                        {{ $item->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('organitation_id')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <label for="inputPassword"
                                                             class="col-sm-2 col-form-label">Roles</label>
                                                         <div class="col-sm-8">
-                                                            <select class="form-select form-select-sm ms-2"
-                                                                name="role_id" id="">
-                                                                <option value selected>--PILIH ROLES--
-                                                                </option>
+                                                            <select
+                                                                class="form-select form-select-sm ms-2 @error('role_id') is-invalid @enderror"
+                                                                name="role_id">
+                                                                <option value selected>--PILIH ROLES--</option>
                                                                 @foreach ($roles as $item)
-                                                                    <option value="{{ $item->id }}">
-                                                                        {{ $item->name }}
-                                                                    </option>
+                                                                    <option value="{{ $item->id }}"
+                                                                        {{ old('role_id') == $item->id ? 'selected' : '' }}>
+                                                                        {{ $item->name }}</option>
                                                                 @endforeach
                                                             </select>
+                                                            @error('role_id')
+                                                                <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
                                                         </div>
                                                     </div>
-
                                                 </div>
+
+
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-bs-dismiss="modal">Close</button>
@@ -252,10 +271,19 @@
                 </div>
             </div>
     </section>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
-    <script src="../js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
+    <script>
+        @if ($errors->any())
+            // If there are errors, show the modal
+            var errorModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            errorModal.show();
+
+            // Populate the error list inside the modal
+        @endif
     </script>
 </body>
 
